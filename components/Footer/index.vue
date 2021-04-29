@@ -24,12 +24,12 @@
             <u>ارتباط با ما</u>
           </nuxt-link>
           <div
-            class="rounded-circle bg-white hidden sm:block"
+            class="rounded-circle bg-white block"
             style="width: 4px;height: 4px;"
           ></div>
           <nuxt-link
             tag="li"
-            class="mx-5 text-white cursor-pointer hidden sm:block"
+            class="mx-5 text-white cursor-pointer block"
             :to="{ path: '/' }"
           >
             <u>دسته بندی ها</u>

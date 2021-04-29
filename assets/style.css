@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "persFont";
+  src: url("./fonts/ttf/homa.ttf");
+}
+* {
+    font-family: "persFont";
+}
