@@ -48,4 +48,8 @@ export default {
     },
     component: "fa"
   },
+
+  axios: {
+    baseURL: "https://api.gameland.rubikto.com/api/v1"
+  }
 };

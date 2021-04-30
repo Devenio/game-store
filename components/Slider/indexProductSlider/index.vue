@@ -5,8 +5,15 @@
       ref="carousel"
       class="relative px-5 z-10"
       style="height: 250px"
+      v-if="!$fetchState.pending"
     >
-      <Product v-for="i in 10" :key="i" />
+      <Product
+        v-for="item in categoryItems.items"
+        :key="item.id"
+        :cover="item.cover"
+        :name="item.name"
+        :id="item.id"
+      />
     </VueSlickCarousel>
   </div>
 </template>
@@ -46,7 +53,8 @@ export default {
             }
           }
         ]
-      }
+      },
+      categoryItems: {}
     };
   },
   components: { VueSlickCarousel, Product },
@@ -59,7 +67,10 @@ export default {
     }
   },
   fetch() {
-    
+    this.categoryItems = this.$store.state.categoryItems;
+  },
+  mounted() {
+    console.log("slider: ", this.categoryItems.items);
   }
 };
 </script>

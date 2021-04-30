@@ -7,7 +7,7 @@
         style="max-height:500px;"
         id="product-details-part"
       >
-        <product-details v-for="i in 6" :key="i" />
+        <sub-category v-for="i in 6" :key="i" />
 
         <div
           class="flex absolute items-center justify-center rounded-full border-2 border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-gray-100"
@@ -33,7 +33,8 @@ export default {
   },
   data() {
     return {
-      isClosed: false
+      isClosed: false,
+      subCategory: {}
     };
   },
   methods: {
@@ -42,6 +43,14 @@ export default {
       pdPart.classList.toggle("h-0");
 
       this.isClosed = !this.isClosed;
+    }
+  },
+  async asyncData({ $axios, store }) {
+    try {
+      const categoryItems = await $axios.$get("index/GetCategory?language=fa");
+      store.dispatch("setCategoryItems", categoryItems.body);
+    } catch (ex) {
+      console.log(ex);
     }
   }
 };
