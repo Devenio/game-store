@@ -7,7 +7,12 @@
         style="max-height:500px;"
         id="product-details-part"
       >
-        <sub-category v-for="i in 6" :key="i" />
+        <Product
+          v-for="item in subCategory.items"
+          :key="item.id"
+          :cover="item.cover"
+          :name="item.name"
+        />
 
         <div
           class="flex absolute items-center justify-center rounded-full border-2 border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-gray-100"
@@ -26,15 +31,17 @@
 
 <script>
 import ProductSlider from "@/components/Slider/indexProductSlider/index";
+import Product from "@/components/Slider/indexProductSlider/product";
+import { mapGetters } from "Vuex";
 
 export default {
   components: {
-    ProductSlider
+    ProductSlider,
+    Product
   },
   data() {
     return {
-      isClosed: false,
-      subCategory: {}
+      isClosed: false
     };
   },
   methods: {
@@ -52,7 +59,8 @@ export default {
     } catch (ex) {
       console.log(ex);
     }
-  }
+  },
+  computed: mapGetters(["subCategory"])
 };
 </script>
 
