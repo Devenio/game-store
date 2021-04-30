@@ -5,3 +5,6 @@
 * {
     font-family: "persFont";
 }
+html {
+  overflow-x: hidden;
+}

@@ -49,7 +49,7 @@
         </div>
 
         <div class="flex flex-col items-center mt-5 ">
-          <h3 class="text-white text-lg">سوپرز در شبکه های اجتماعی</h3>
+          <h3 class="text-white text-lg">گیم لند در شبکه های اجتماعی</h3>
           <ul
             class="list-none mt-3 w-full flex items-center justify-center p-0"
           >
