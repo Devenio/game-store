@@ -39,12 +39,21 @@ export default {
             settings: {
               dots: false,
               arrows: false,
-              slidesPerRow: 2
+              slidesPerRow: 3
               // autoplay: true
             }
           },
           {
             breakpoint: 768,
+            settings: {
+              dots: false,
+              arrows: false,
+              slidesPerRow: 2
+              // autoplay: true
+            }
+          },
+          {
+            breakpoint: 500,
             settings: {
               dots: false,
               arrows: false,

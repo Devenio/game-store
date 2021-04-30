@@ -1,26 +1,32 @@
 <template>
-  <div id="product-wrapper" class="relative overflow-hidden px-5 m-3">
-    <div class="w-full shadow-lg rounded-xl relative">
-      <img src="/tp.jpg" alt="picture" class="object-center object-cover" />
+  <div
+    :id="`subCategory-${id}`"
+    class="relative overflow-hidden m-3 border-2 rounded-lg border-gray-500"
+    :data-id="id"
+    style="min-width: 160px;"
+  >
+    <div class="w-full text-center">
+      <img
+        :src="cover"
+        :alt="name"
+        class="object-center object-cover mx-auto"
+        style="width:100% !important"
+      />
     </div>
-    <div class="h-full w-full bg-gray-100 p-3">
-      لورم اپیسوم یک متن ساختگی برای طراحی
-      لورم اپیسوم یک متن ساختگی برای طراحی
-      لورم اپیسوم یک متن ساختگی برای طراحی
-      لورم اپیسوم یک متن ساختگی برای طراحی
-      لورم اپیسوم یک متن ساختگی برای طراحی
+    <div class="h-full w-full bg-gray-800 p-3 text-white text-center">
+      {{ name }}
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    name: String,
+    id: Number,
+    cover: String
+  }
+};
 </script>
 
-<style scoped>
-#product-wrapper {
-  height: 400px;
-  width: 300px;
-}
-
-</style>
+<style scoped></style>

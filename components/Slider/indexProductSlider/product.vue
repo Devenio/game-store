@@ -1,12 +1,12 @@
 <template>
   <div
     :id="`item-${id}`"
-    class="relative overflow-hidden px-5 product-wrapper"
+    class="relative overflow-hidden px-5 product-wrapper cursor-pointer"
     :data-id="id"
     @click="getSubCategory()"
   >
     <div class="w-full h-full shadow-lg rounded-xl relative">
-      <img :src="cover" alt="picture" class="object-center object-cover" />
+      <img :src="cover" alt="picture" class="object-center object-cover w-full" />
       <div
         class="absolute bottom-0 w-full py-3 z-20 bg-black opacity-50 text-white text-center"
       >

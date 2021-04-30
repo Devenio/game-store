@@ -3,20 +3,21 @@
     <div class="container mx-auto">
       <product-slider class="my-10"></product-slider>
       <div
-        class="w-full relative transition-all duration-500 bg-gradient-to-br from-red-200 to-blue-200 my-10 p-5 flex items-center justify-center flex-wrap overflow-y-scroll"
+        class=" relative transition-all duration-500 rounded-lg my-10 flex items-center justify-start overflow-x-auto"
         style="max-height:500px;"
         id="product-details-part"
       >
-        <Product
+        <sub-category
           v-for="item in subCategory.items"
           :key="item.id"
           :cover="item.cover"
           :name="item.name"
+          :id="item.id"
         />
 
         <div
           class="flex absolute items-center justify-center rounded-full border-2 border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-gray-100"
-          style="width:30px;height:30px;top:10px;left:10px;"
+          style="width:30px;height:30px;top:5px;left:10px;"
           @click="togglePdPart()"
         >
           <fa
@@ -47,7 +48,7 @@ export default {
   methods: {
     togglePdPart() {
       const pdPart = document.querySelector("#product-details-part");
-      pdPart.classList.toggle("h-0");
+      pdPart.classList.toggle("h-10");
 
       this.isClosed = !this.isClosed;
     }
