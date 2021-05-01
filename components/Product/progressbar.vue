@@ -4,9 +4,9 @@
       class="border-2 border-green-600 relative rounded-full"
       style="width:200px;height:15px;"
     >
-      <div class="absolute right-0 h-full bg-green-600" id="progress"></div>
+      <div class="absolute right-0 h-full bg-green-600" :id="`progress-${id}`"></div>
     </div>
-    <h3 class="text-xl ml-5">property</h3>
+    <h3 class="text-xl ml-5">{{property}}</h3>
   </div>
 </template>
 
@@ -14,11 +14,12 @@
 export default {
   props: {
     percent: Number,
-    property: String
+    property: String,
+    id: Number
   },
   mounted() {
-    const progress = document.querySelector("#progress");
-    progress.style = `width: 30%`;
+    const progress = document.querySelector(`#progress-${this.id}`);
+    progress.style = `width: ${this.percent}%`;
   }
 };
 </script>

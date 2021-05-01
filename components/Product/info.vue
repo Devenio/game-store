@@ -2,7 +2,13 @@
   <div class="px-3 w-full">
     <div class="w-full p-3 bg-white rounded-lg">
       <h1 class="text-right text-xl">:توضیحات</h1>
-      <progressbar />
+      <progressbar
+        v-for="(prop, index) in data.property"
+        :key="prop"
+        :percent="prop.value"
+        :property="prop.prop"
+        :id="index"
+      />
       <p class="text-right text-xl">
         <span class="text-base">{{ data.name }}</span>
         :نام

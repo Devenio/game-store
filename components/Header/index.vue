@@ -77,7 +77,7 @@ export default {
       navbarItems: [
         {
           title: "حساب کاربری",
-          path: "/",
+          path: "/dashboard",
           icon: {
             type: "fas",
             name: "user-circle"

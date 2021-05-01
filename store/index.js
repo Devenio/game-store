@@ -3,7 +3,9 @@ export const state = () => ({
   subCategory: {},
   products: {},
   productsInfo: {},
-  order: []
+  order: [],
+  authenticated: false,
+  userData: {}
 });
 
 export const getters = {
@@ -21,7 +23,13 @@ export const getters = {
   },
   order: state => {
     return state.order;
-  }
+  },
+  authenticated: state => {
+    return state.authenticated;
+  },
+  userData: state => {
+    return state.userData;
+  },
 };
 
 export const mutations = {
@@ -39,7 +47,13 @@ export const mutations = {
   },
   ADD_ORDER: (state, payload) => {
     state.order.push(payload);
-  }
+  },
+  AUTHENTICATION: (state, payload) => {
+    state.authenticated = payload;
+  },
+  SET_USER_DATA: (state, payload) => {
+    state.userData = payload;
+  },
 };
 
 export const actions = {
@@ -55,5 +69,11 @@ export const actions = {
   },
   addOrder: ({ commit }, order) => {
     commit("ADD_ORDER", order);
-  }
+  },
+  authentication: ({ commit }, isAuthenticated) => {
+    commit("AUTHENTICATION", isAuthenticated);
+  },
+  setUserData: ({ commit }, data) => {
+    commit("SET_USER_DATA", data);
+  },
 };
