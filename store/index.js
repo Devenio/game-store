@@ -5,7 +5,8 @@ export const state = () => ({
   productsInfo: {},
   order: [],
   authenticated: false,
-  userData: {}
+  userData: {},
+  currentTab: ""
 });
 
 export const getters = {
@@ -29,6 +30,9 @@ export const getters = {
   },
   userData: state => {
     return state.userData;
+  },
+  currentTab: state => {
+    return state.currentTab;
   },
 };
 
@@ -54,6 +58,9 @@ export const mutations = {
   SET_USER_DATA: (state, payload) => {
     state.userData = payload;
   },
+  SET_CURRENT_TAB: (state, payload) => {
+    state.currentTab = payload;
+  },
 };
 
 export const actions = {
@@ -75,5 +82,8 @@ export const actions = {
   },
   setUserData: ({ commit }, data) => {
     commit("SET_USER_DATA", data);
+  },
+  setCurrentTab: ({ commit }, tab) => {
+    commit("SET_CURRENT_TAB", tab);
   },
 };

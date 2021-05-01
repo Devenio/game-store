@@ -16,13 +16,11 @@
         />
       </div>
 
-      <Offer v-if="offer" :data="offer" />
-
       <div class="flex flex-wrap">
         <product-info :data="productsInfo" />
         <Product
           v-for="product in products.items"
-          :key="product"
+          :key="product.id"
           :product="product"
         />
       </div>
@@ -45,7 +43,6 @@ export default {
   data() {
     return {
       isClosed: false,
-      offer: {}
     };
   },
   methods: {
@@ -65,17 +62,7 @@ export default {
       console.log(ex);
     }
   },
-  computed: mapState(["subCategory", "products", "productsInfo"]),
-  mounted() {
-    this.$axios
-      .$get("index/GetOffer?language=fa")
-      .then(res => {
-        this.offer = res.body[0]
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  computed: mapState(["subCategory", "products", "productsInfo"])
 };
 </script>
 

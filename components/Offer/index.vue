@@ -1,33 +1,33 @@
 <template>
   <div
-    class="w-full my-5 bg-red-700 flex items-center justify-around"
+    class="w-full bg-red-700 flex items-center justify-around"
     style="height: 110px;"
   >
     <div class="text-center py-3">
-      <h1 class="text-3xl font-semibold text-gray-100">{{ data.name }}</h1>
-      <h3 class="text-xl text-gray-100">{{ data.sub_name }}</h3>
+      <h1 class="text-xl sm:text-3xl font-semibold text-gray-100">{{ data.name }}</h1>
+      <h3 class="text-lg sm:text-xl text-gray-100">{{ data.sub_name }}</h3>
       <a :href="data.more_link" class="text-white underline">more link</a>
     </div>
 
     <div class="w-1/2 sm:w-1/4 flex items-center justify-around">
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 text-xl"
+        class="flex items-center justify-center bg-gray-300 sm:text-xl"
         id="days"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 text-xl"
+        class="flex items-center justify-center bg-gray-300 sm:text-xl"
         id="hours"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 text-xl"
+        class="flex items-center justify-center bg-gray-300 sm:text-xl"
         id="mins"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 text-xl"
+        class="flex items-center justify-center bg-gray-300 sm:text-xl"
         id="secs"
       ></div>
     </div>
@@ -38,6 +38,7 @@
 export default {
   mounted() {
     // The data/time we want to countdown to
+
     setTimeout(() => {
       console.log(this.data.until_date * 1000);
       var countDownDate = +this.data.until_date * 1000;

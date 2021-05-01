@@ -40,14 +40,20 @@
             تومان
           </div>
 
-          <div :class="product.in_stock ? 'text-green-600' : 'text-red-600'">
+          <div :class="product.in_stock ? 'text-green-600' : 'text-red-600'" v-if="!isPanel">
             موجود
             {{ product.in_stock ? "میباشد" : "نمی باشد" }}
           </div>
+
+          <p v-if="isPanel">
+            {{ product_num }}
+            :تعداد
+          </p>
         </div>
       </div>
       <div
         class="flex flex-wrap-reverse items-center text-lg w-full justify-around border-t-2 border-gray-700 py-3"
+        v-if="!isPanel"
       >
         <button
           class="p-2 bg-blue-500 cursor-pointer shadow-lg"
@@ -94,7 +100,12 @@ import { mapGetters } from "Vuex";
 
 export default {
   props: {
-    product: Object
+    product: Object,
+    isPanel: {
+      type: Boolean,
+      default: false
+    },
+    product_num: Number
   },
   filters: {
     makePriceNum: val => {
@@ -130,7 +141,7 @@ export default {
       } else {
         this.toggleCounterBoxStatus(false)
         let order = {
-          product_id: this.product.id,
+          product: this.product,
           product_number: this.counter
         };
         this.$store.dispatch("addOrder", order);

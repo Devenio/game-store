@@ -1,20 +1,17 @@
 <template>
   <div class="w-full bg-gray-200">
-    <app-header />
     <Offer v-if="offer" :data="offer" />
+    <Header />
     <Nuxt />
-    <Footer />
   </div>
 </template>
 
 <script>
-import Header from "@/components/Header/index";
-import Footer from "@/components/Footer/index";
+import Header from "@/components/Header/dashboardHeader";
 
 export default {
   components: {
-    appHeader: Header,
-    Footer
+    Header
   },
   data() {
     return {

@@ -4,7 +4,7 @@
       <h1 class="text-right text-xl">:توضیحات</h1>
       <progressbar
         v-for="(prop, index) in data.property"
-        :key="prop"
+        :key="prop.id"
         :percent="prop.value"
         :property="prop.prop"
         :id="index"
