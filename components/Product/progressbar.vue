@@ -1,12 +1,12 @@
 <template>
-  <div class="flex w-full items-center justify-between my-3">
+  <div class="flex w-full items-center justify-end my-3">
     <div
       class="border-2 border-green-600 relative rounded-full"
       style="width:200px;height:15px;"
     >
       <div class="absolute right-0 h-full bg-green-600" id="progress"></div>
     </div>
-    <h3>property</h3>
+    <h3 class="text-xl ml-5">property</h3>
   </div>
 </template>
 

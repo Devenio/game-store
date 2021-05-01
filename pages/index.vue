@@ -16,11 +16,14 @@
         />
       </div>
 
-      <Product
-        v-for="product in products.items"
-        :key="product"
-        :product="product"
-      />
+      <div class="flex flex-wrap">
+        <product-info :data="productsInfo" />
+        <Product
+          v-for="product in products.items"
+          :key="product"
+          :product="product"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -28,12 +31,14 @@
 <script>
 import ProductSlider from "@/components/Slider/indexProductSlider/index";
 import Product from "@/components/Product/index";
+import ProductInfo from "@/components/Product/info"
 import { mapState } from "Vuex";
 
 export default {
   components: {
     ProductSlider,
-    Product
+    Product,
+    ProductInfo
   },
   data() {
     return {
@@ -56,7 +61,7 @@ export default {
       console.log(ex);
     }
   },
-  computed: mapState(["subCategory", "products"])
+  computed: mapState(["subCategory", "products", "productsInfo"])
 };
 </script>
 

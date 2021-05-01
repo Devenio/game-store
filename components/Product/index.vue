@@ -1,22 +1,5 @@
 <template>
-  <div class="px-3">
-    <!-- <div
-      class="w-full flex items-center border-2 my-3 flex-row-reverse border-gray-800"
-      style="height: 60px;"
-    >
-      <img
-        :src="product.cover"
-        :alt="product.name"
-        width="60px"
-        class="h-full"
-      />
-      <div class="flex-grow border-2 p-2 border-red-500 h-full flex flex-col">
-        <p class="m-0 text-right">{{ product.name }} : نام محصول</p>
-      </div>
-      <div class="flex-grow border-2 border-green-500 h-full flex flex-col">
-
-      </div>
-    </div> -->
+  <div class="px-3 sm:w-1/2 w-full">
     <div
       class="w-full flex flex-col items-center bg-gray-100 my-2 rounded-lg border-2 border-gray-300"
       :data-id="product.id"
@@ -66,8 +49,12 @@
       <div
         class="flex flex-wrap-reverse items-center text-lg w-full justify-around border-t-2 border-gray-700 py-3"
       >
-        <button class="p-2 bg-blue-500 cursor-pointer shadow-lg" :class="product.in_stock ? '' : 'opacity-50'">
-          {{ product.in_stock ? "افزودن به سبد خرید" : "موجود نیست"}}
+        <button
+          class="p-2 bg-blue-500 cursor-pointer shadow-lg"
+          :class="product.in_stock ? '' : 'opacity-50'"
+          @click="addCart()"
+        >
+          {{ product.in_stock ? "افزودن به سبد خرید" : "موجود نیست" }}
         </button>
 
         <div class="flex items-center">
@@ -122,26 +109,41 @@ export default {
   },
   methods: {
     increment() {
-      const counterBox = document.querySelector(
-        `#counter-box-${this.product.id}`
-      );
       if (this.counter >= this.product.max_count) {
-        counterBox.classList.replace("bg-gray-200", "bg-red-400");
+        this.toggleCounterBoxStatus(true)
         return;
       }
-      counterBox.classList.replace("bg-red-400", "bg-gray-200");
+      this.toggleCounterBoxStatus(false)
       this.counter++;
     },
     decrement() {
+      if (this.counter <= 0) {
+        this.toggleCounterBoxStatus(true)
+        return;
+      }
+      this.toggleCounterBoxStatus(false)
+      this.counter--;
+    },
+    addCart() {
+      if (this.counter === 0) {
+        this.toggleCounterBoxStatus(true)
+      } else {
+        this.toggleCounterBoxStatus(false)
+        let order = {
+          product_id: this.product.id,
+          product_number: this.counter
+        };
+        this.$store.dispatch("addOrder", order);
+        this.counter = 0;
+      }
+    },
+    toggleCounterBoxStatus(status) {
       const counterBox = document.querySelector(
         `#counter-box-${this.product.id}`
       );
-      if (this.counter <= 0) {
-        counterBox.classList.replace("bg-gray-200", "bg-red-400");
-        return;
-      }
-      counterBox.classList.replace("bg-red-400", "bg-gray-200");
-      this.counter--;
+      status
+        ? counterBox.classList.replace("bg-gray-200", "bg-red-400")
+        : counterBox.classList.replace("bg-red-400", "bg-gray-200");
     }
   }
 };

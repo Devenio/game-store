@@ -1,7 +1,9 @@
 export const state = () => ({
   categoryItems: {},
   subCategory: {},
-  products: {}
+  products: {},
+  productsInfo: {},
+  order: []
 });
 
 export const getters = {
@@ -13,6 +15,12 @@ export const getters = {
   },
   products: state => {
     return state.products;
+  },
+  productsInfo: state => {
+    return state.productsInfo;
+  },
+  order: state => {
+    return state.order;
   }
 };
 
@@ -25,6 +33,12 @@ export const mutations = {
   },
   SET_PRODUCTS: (state, payload) => {
     state.products = payload;
+  },
+  SET_PRODUCTS_INFO: (state, payload) => {
+    state.productsInfo = payload;
+  },
+  ADD_ORDER: (state, payload) => {
+    state.order.push(payload);
   }
 };
 
@@ -37,5 +51,9 @@ export const actions = {
   },
   setProducts: ({ commit }, data) => {
     commit("SET_PRODUCTS", data.body);
+    commit("SET_PRODUCTS_INFO", data.info[0])
+  },
+  addOrder: ({ commit }, order) => {
+    commit("ADD_ORDER", order);
   }
 };
