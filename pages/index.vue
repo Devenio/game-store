@@ -16,6 +16,8 @@
         />
       </div>
 
+      <Offer v-if="offer" :data="offer" />
+
       <div class="flex flex-wrap">
         <product-info :data="productsInfo" />
         <Product
@@ -31,7 +33,7 @@
 <script>
 import ProductSlider from "@/components/Slider/indexProductSlider/index";
 import Product from "@/components/Product/index";
-import ProductInfo from "@/components/Product/info"
+import ProductInfo from "@/components/Product/info";
 import { mapState } from "Vuex";
 
 export default {
@@ -42,7 +44,8 @@ export default {
   },
   data() {
     return {
-      isClosed: false
+      isClosed: false,
+      offer: {}
     };
   },
   methods: {
@@ -56,12 +59,23 @@ export default {
   async asyncData({ $axios, store }) {
     try {
       const categoryItems = await $axios.$get("index/GetCategory?language=fa");
+
       store.dispatch("setCategoryItems", categoryItems.body);
     } catch (ex) {
       console.log(ex);
     }
   },
-  computed: mapState(["subCategory", "products", "productsInfo"])
+  computed: mapState(["subCategory", "products", "productsInfo"]),
+  mounted() {
+    this.$axios
+      .$get("index/GetOffer?language=fa")
+      .then(res => {
+        this.offer = res.body[0]
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
 
