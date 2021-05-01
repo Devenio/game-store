@@ -1,6 +1,7 @@
 export const state = () => ({
   categoryItems: {},
-  subCategory: {}
+  subCategory: {},
+  products: {}
 });
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   subCategory: state => {
     return state.subCategory;
+  },
+  products: state => {
+    return state.products;
   }
 };
 
@@ -18,6 +22,9 @@ export const mutations = {
   },
   SET_SUB_CATEGORY_ITEMS: (state, payload) => {
     state.subCategory = payload;
+  },
+  SET_PRODUCTS: (state, payload) => {
+    state.products = payload;
   }
 };
 
@@ -27,5 +34,8 @@ export const actions = {
   },
   setSubCategoryItems: ({ commit }, data) => {
     commit("SET_SUB_CATEGORY_ITEMS", data);
+  },
+  setProducts: ({ commit }, data) => {
+    commit("SET_PRODUCTS", data.body);
   }
 };

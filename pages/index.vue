@@ -14,26 +14,21 @@
           :name="item.name"
           :id="item.id"
         />
-
-        <div
-          class="flex absolute items-center justify-center rounded-full border-2 border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-gray-100"
-          style="width:30px;height:30px;top:5px;left:10px;"
-          @click="togglePdPart()"
-        >
-          <fa
-            :icon="['fas', isClosed ? 'angle-down' : 'angle-up']"
-            size="lg"
-          ></fa>
-        </div>
       </div>
+
+      <Product
+        v-for="product in products.items"
+        :key="product"
+        :product="product"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import ProductSlider from "@/components/Slider/indexProductSlider/index";
-import Product from "@/components/Slider/indexProductSlider/product";
-import { mapGetters } from "Vuex";
+import Product from "@/components/Product/index";
+import { mapState } from "Vuex";
 
 export default {
   components: {
@@ -61,7 +56,7 @@ export default {
       console.log(ex);
     }
   },
-  computed: mapGetters(["subCategory"])
+  computed: mapState(["subCategory", "products"])
 };
 </script>
 

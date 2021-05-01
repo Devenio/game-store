@@ -4,6 +4,7 @@
     class="relative overflow-hidden m-3 border-2 rounded-lg border-gray-500"
     :data-id="id"
     style="min-width: 160px;"
+    @click="getProduct()"
   >
     <div class="w-full text-center">
       <img
@@ -25,6 +26,21 @@ export default {
     name: String,
     id: Number,
     cover: String
+  },
+  methods: {
+    getProduct() {
+      const subCategory = document.querySelector(`#subCategory-${this.id}`);
+      const id = subCategory.id;
+
+      this.$axios
+        .$get(`index/GetProducts?language=fa&sub_category_id=${id}`)
+        .then(res => {
+          this.$store.dispatch("setProducts", res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>

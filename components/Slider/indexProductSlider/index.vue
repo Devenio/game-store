@@ -5,7 +5,6 @@
       ref="carousel"
       class="relative px-5 z-10"
       style="height: 250px"
-      v-if="!$fetchState.pending"
     >
       <Product
         v-for="item in categoryItems.items"
@@ -24,6 +23,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import Product from "./product";
+import { mapGetters } from "Vuex";
 
 export default {
   data() {
@@ -63,7 +63,6 @@ export default {
           }
         ]
       },
-      categoryItems: {}
     };
   },
   components: { VueSlickCarousel, Product },
@@ -75,12 +74,7 @@ export default {
       this.$refs.carousel.prev();
     }
   },
-  fetch() {
-    this.categoryItems = this.$store.state.categoryItems;
-  },
-  mounted() {
-    console.log("slider: ", this.categoryItems.items);
-  }
+  computed: mapGetters(["categoryItems"])
 };
 </script>
 
