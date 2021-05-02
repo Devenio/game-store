@@ -1,12 +1,17 @@
 <template>
-  <div class="v-full border-b-2 border-gray-500 relative" style="height: 78px;">
+  <div class="v-full border-b-2 border-gray-500 relative" style="">
     <div
       class="container flex flex-row-reverse items-center justify-between px-3 h-full mx-auto"
     >
-      <div class="text-right">
-        نام : نیما شهبازی
+      <div class="text-right my-1">
+        {{ userData.first_name + " " + userData.last_name }}
+        :نام
         <br />
-        nimashahbazi524@gmail.com :ایمیل
+        {{ userData.email }}
+        :ایمیل
+        <br />
+        {{ userData.phone_number }}
+        :شماره تلفن
       </div>
       <fa
         :icon="['fas', 'bars']"
@@ -45,25 +50,53 @@
         >
           {{ item }}
         </li>
+        <li
+          class="py-3 text-center text-red-500 text-lg hover:bg-gray-800 cursor-pointer"
+          @click="logout()"
+        >
+          خروج از حساب
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      panelItems: ["سبد خرید", "افزایش موجودی"],
+      panelItems: ["سبد خرید"],
       openMenu: false
     };
   },
   methods: {
     tabClicked(index) {
-      const tab = document.querySelector(`#tab-${index}`)
+      const tab = document.querySelector(`#tab-${index}`);
       this.openMenu = !this.openMenu;
-      this.$store.dispatch("setCurrentTab", tab.dataset.tab)
+      this.$store.dispatch("setCurrentTab", tab.dataset.tab);
+    },
+    logout() {
+      const token = window.localStorage.getItem("access_token");
+      this.$axios
+        .$get("client/logout?language=fa", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then(res => {
+          console.log(res);
+          if(res.ok) {
+            this.$store.dispatch("authentication", false);
+            window.localStorage.removeItem("access_token");
+            this.$router.push("/")
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  },
+  computed: {
+    ...mapGetters(["userData"])
   }
 };
 </script>

@@ -5,7 +5,7 @@
     </h1>
     <div
       style="height: 500px;"
-      class="bg-gray-800 w-full flex flex-col sm:w-1/2  rounded-lg border-2 border-gray-800 overflow-hidden"
+      class="bg-gray-800 w-full flex flex-col sm:w-1/2 lg:w-1/3  rounded-lg border-2 border-gray-800 overflow-hidden"
     >
       <div class="w-full flex divide-x-2 divide-gray-700">
         <div
@@ -123,7 +123,6 @@ export default {
             } else {
               this.errorMessage = "";
               this.$store.dispatch("authentication", true);
-              this.$store.dispatch("setUserData", data);
               window.localStorage.setItem("access_token", res.body.info.access_token);
               dashboard.click();
             }
@@ -151,8 +150,6 @@ export default {
               });
             } else {
               this.errorMessage = "";
-              // this.$store.dispatch("authentication", true);
-              this.$store.dispatch("setUserData", data);
               this.errorMessage = "پسورد شما به ایمیلتان ارسال شد. برای ادامه وارد شوید"
               loginButton.click();
             }

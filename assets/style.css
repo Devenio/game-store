@@ -5,6 +5,7 @@
 }
 * {
     font-family: "persFont", "Roboto";
+    outline: none;
 }
 html {
   overflow-x: hidden;
