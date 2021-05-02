@@ -13,7 +13,7 @@
         <span class="text-base">{{ data.name }}</span>
         :نام
       </p>
-      <p class="text-right text-xl">
+      <p class="text-right text-xl mt-5">
         :توصیف
         <br />
         <span class="text-base">{{ data.decs }}</span>

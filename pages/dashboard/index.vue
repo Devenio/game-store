@@ -2,18 +2,23 @@
   <div class="container mx-auto min-h-screen">
     <div>
       <div
-        class="text-gray-800 text-lg p-3 border-2 border-gray-700 text-center"
+        class="text-gray-800 text-lg p-3 border-b-2 border-gray-700 text-center"
       >
         سبد خرید
       </div>
       <div class="flex flex-wrap">
-        <Product
-          v-for="ord in order"
-          :key="ord.id"
-          :product="ord.product"
-          :isPanel="true"
-          :product_num="ord.product_number"
-        />
+        <div class="w-full lg:w-3/4 mx-auto">
+          <div class="w-full py-20 flex items-center justify-center" v-if="order.length == 0">
+            هیچ محصولی در سبد خرید شما وجود ندارد !!
+          </div>
+          <Product
+            v-for="ord in order"
+            :key="ord.id"
+            :product="ord.product"
+            :isPanel="true"
+            :product_num="ord.product_number"
+          />
+        </div>
       </div>
       <div
         class="text-gray-800 text-lg p-3 border-2 border-gray-700 text-right"

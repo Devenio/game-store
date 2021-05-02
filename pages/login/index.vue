@@ -5,7 +5,7 @@
     </h1>
     <div
       style="height: 500px;"
-      class="bg-gray-500 w-full flex flex-col sm:w-1/2"
+      class="bg-gray-800 w-full flex flex-col sm:w-1/2  rounded-lg border-2 border-gray-800 overflow-hidden"
     >
       <div class="w-full flex divide-x-2 divide-gray-700">
         <div
@@ -17,6 +17,7 @@
         <div
           class="flex-grow text-center text-lg bg-white py-5"
           @click="isLogin = true"
+          id="login-button"
         >
           ورود
         </div>
@@ -24,7 +25,7 @@
       <form
         class="w-full h-3/4 flex flex-col justify-center items-center flex-grow"
       >
-        <h1 class="text-xl font-semibold my-5">
+        <h1 class="text-xl my-5 text-white">
           {{ isLogin ? "ورود" : "ثبت نام" }}
         </h1>
         <input
@@ -60,6 +61,7 @@
           class="w-3/4 p-3 my-3 text-right"
           placeholder="پسورد خود را وارد کنید"
           v-if="isLogin"
+          v-model="loginData.password"
         />
         <button
           type="submit"
@@ -72,6 +74,12 @@
     </div>
 
     <nuxt-link to="/dashboard" id="dashboard"></nuxt-link>
+    <div
+      v-if="errorMessage"
+      class="p-3 border-2 border-red-800 rounded-lg fixed bg-white"
+      style="width: 300px;bottom:30px;right:30px;"
+      v-html="errorMessage"
+    ></div>
   </div>
 </template>
 
@@ -88,41 +96,69 @@ export default {
       loginData: {
         email: "",
         password: ""
-      }
+      },
+      errorMessage: ""
     };
   },
   methods: {
     userLogin() {
       let data = this.isLogin ? this.loginData : this.registerData;
       const dashboard = document.querySelector("#dashboard");
+      const loginButton = document.querySelector("#login-button");
 
       if (this.isLogin) {
+        console.log("login");
+
         this.$axios
           .$post(
-            `client/register?language=fa&password=${data.password}&email=${data.email}`
+            `client/login?language=fa&password=${data.password}&username=${data.email}`
           )
           .then(res => {
-            this.$store.dispatch("authentication", true);
-            this.$store.dispatch("setUserData", data);
-
-            dashboard.click();
+            if (res.errors) {
+              console.log(res.errors);
+              this.errorMessage = "";
+              res.errors.forEach(error => {
+                this.errorMessage += error.message + ".<br /> ";
+              });
+            } else {
+              this.errorMessage = "";
+              this.$store.dispatch("authentication", true);
+              this.$store.dispatch("setUserData", data);
+              window.localStorage.setItem("access_token", res.body.info.access_token);
+              dashboard.click();
+            }
           })
           .catch(err => {
-            console.log(err);
+            this.errorMessage = err.message;
           });
       } else {
+        console.log("register");
+
         this.$axios
           .$post(
-            `client/register?language=fa&first_name=${data.first_name}&last_name=${data.last}&email=${data.email}`
+            `client/register?language=fa&first_name=${data.first_name}&last_name=${data.last_name}&email=${data.email}`
           )
           .then(res => {
-            this.$store.dispatch("authentication", true);
-            this.$store.dispatch("setUserData", data);
-
-            dashboard.click();
+            if (res.errors) {
+              this.errorMessage = "";
+              res.errors.forEach(error => {
+                if (error.message == "User already registered") {
+                  this.errorMessage = "این ایمیل قبلا ثبت شده.";
+                  loginButton.click();
+                } else {
+                  this.errorMessage += error.message + ".<br /> ";
+                }
+              });
+            } else {
+              this.errorMessage = "";
+              // this.$store.dispatch("authentication", true);
+              this.$store.dispatch("setUserData", data);
+              this.errorMessage = "پسورد شما به ایمیلتان ارسال شد. برای ادامه وارد شوید"
+              loginButton.click();
+            }
           })
           .catch(err => {
-            console.log(err);
+            this.errorMessage = err.message;  
           });
       }
     }

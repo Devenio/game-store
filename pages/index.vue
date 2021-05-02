@@ -23,11 +23,13 @@
       </h1>
       <div class="flex flex-wrap">
         <product-info :data="productsInfo" />
-        <Product
-          v-for="product in products.items"
-          :key="product.id"
-          :product="product"
-        />
+        <div class="mx-auto w-full lg:w-3/5">
+          <Product
+            v-for="product in products.items"
+            :key="product.id"
+            :product="product"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -67,7 +69,10 @@ export default {
       console.log(ex);
     }
   },
-  computed: mapState(["subCategory", "products", "productsInfo"])
+  computed: {
+    ...mapState(["subCategory", "products", "productsInfo"]),
+  },
+
 };
 </script>
 

@@ -8,7 +8,7 @@
         {{ data.name }}
       </h1>
       <h3 class="text-lg sm:text-xl text-gray-100">{{ data.sub_name }}</h3>
-      <a :href="data.more_link" class="text-white underline">more link</a>
+      <a :href="data.more_link" class="text-white underline">اطلاعات بیشتر</a>
     </div>
 
     <div class="w-1/2 sm:w-1/4 flex items-center justify-around">
@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     countDown() {
-      console.log(this.data.until_date * 1000);
       var countDownDate = +this.data.until_date * 1000;
 
       // Run myfunc every second

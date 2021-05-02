@@ -6,7 +6,7 @@
     >
       <div class="absolute right-0 h-full bg-green-700" :id="`progress-${id}`"></div>
     </div>
-    <h3 class="text-xl ml-5">{{property}}</h3>
+    <h3 class="text-lg ml-5 text-gray-600">{{property}}</h3>
   </div>
 </template>
 
@@ -20,7 +20,6 @@ export default {
   mounted() {
     const progress = document.querySelector(`#progress-${this.id}`);
     progress.style = `width: ${this.percent}%`;
-    console.log(progress.style);
   }
 };
 </script>

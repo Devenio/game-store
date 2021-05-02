@@ -17,13 +17,13 @@
     </div>
 
     <div
-      class="w-screen h-screen bg-black opacity-50 absolute top-0 right-0"
+      class="w-screen h-screen bg-black opacity-50 absolute top-0 right-0 z-10"
       v-if="openMenu"
       @click="openMenu = !openMenu"
     ></div>
 
     <div
-      class="w-1/2 h-screen absolute top-0 bg-gray-900 transition-all duration-500"
+      class="w-1/2 md:w-1/4 h-screen absolute top-0 bg-gray-900 transition-all duration-500 z-50"
       :class="openMenu ? 'left-0' : 'hidden'"
     >
       <ul class="w-full divide-y-2 divide-gray-400 mt-10">

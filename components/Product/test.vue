@@ -1,88 +1,10 @@
 <template>
-  <div class="px-3 w-full overflow-x-scroll">
+  <div class="px-3 sm:w-1/2 w-full">
     <div
-      class="w-full flex items-center my-2 rounded-lg shadow-lg border-2 p-3 relative border-gray-800"
+      class="w-full flex flex-col items-center bg-gray-100 m-2 rounded-lg shadow-lg"
       :data-id="product.id"
-      style="height: 100px; min-width: 565px;"
     >
-      <div
-        class="p-1 bg-gradient-to-br from-red-500 via-red-700 to-red-500 text-center text-white absolute top-0 left-0"
-        v-if="product.discount"
-      >
-        {{ product.discount }}% تخفیف
-      </div>
-      <div class="flex-grow">
-        <img :src="product.cover" :alt="product.name" class="h-full" />
-      </div>
-      <div class="flex-grow text-center">
-        <p>
-          {{ product.name }}
-          :نام محصول
-        </p>
-
-        <div :class="product.discount ? ['line-through', 'text-gray-600'] : ''">
-          قیمت:
-          {{ product.price | makePriceNum }}
-          تومان
-        </div>
-
-        <div v-if="product.discount">
-          قیمت:
-          {{
-            (product.price - (product.discount / 100) * product.price)
-              | makePriceNum
-          }}
-          تومان
-        </div>
-      </div>
-      <div class="flex items-center flex-grow" v-if="!isPanel">
-        <div
-          class="cursor-pointer bg-gray-400 flex items-center justify-center mx-1 text-gray-700"
-          style="width:40px;height:40px;"
-          @click="decrement()"
-        >
-          <fa :icon="['fas', 'minus']"></fa>
-        </div>
-
-        <div
-          style="width:40px;height:40px;"
-          class="bg-gray-200 flex items-center justify-center"
-          :id="`counter-box-${product.id}`"
-        >
-          {{ counter }}
-        </div>
-
-        <div
-          class="cursor-pointer bg-gray-400 flex items-center justify-center mx-1 text-gray-700"
-          style="width:40px;height:40px;"
-          @click="increment()"
-        >
-          <fa :icon="['fas', 'plus']"></fa>
-        </div>
-      </div>
-      <div>
-        <button
-          class="bg-blue-500 px-5 py-2 tracking-wider text-white rounded-full hover:bg-blue-600"
-          :class="product.in_stock ? '' : 'opacity-50'"
-          @click="addCart()"
-          v-if="! isPanel"
-        >
-          {{ product.in_stock ? "افزودن به سبد خرید" : "موجود نیست" }}
-        </button>
-        <div
-          :class="product.in_stock ? 'text-green-600' : 'text-red-600'"
-          class="text-right"
-          v-if="!isPanel"
-        >
-          موجود
-          {{ product.in_stock ? "میباشد" : "نمی باشد" }}
-        </div>
-        <p v-if="isPanel">
-          {{ product_num }}
-          :تعداد
-        </p>
-      </div>
-      <!-- <div class="w-full flex">
+      <div class="w-full flex">
         <img
           :src="product.cover"
           :alt="product.name"
@@ -171,7 +93,7 @@
         </div>
 
         <p class="text-right">:تعدادی که میخواهید رو انتخاب کنید</p>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
