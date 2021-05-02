@@ -72,8 +72,6 @@
         </button>
       </form>
     </div>
-
-    <nuxt-link to="/dashboard" id="dashboard"></nuxt-link>
     <div
       v-if="errorMessage"
       class="p-3 border-2 border-red-800 rounded-lg fixed bg-white"
@@ -103,19 +101,15 @@ export default {
   methods: {
     userLogin() {
       let data = this.isLogin ? this.loginData : this.registerData;
-      const dashboard = document.querySelector("#dashboard");
       const loginButton = document.querySelector("#login-button");
 
       if (this.isLogin) {
-        console.log("login");
-
         this.$axios
           .$post(
             `client/login?language=fa&password=${data.password}&username=${data.email}`
           )
           .then(res => {
             if (res.errors) {
-              console.log(res.errors);
               this.errorMessage = "";
               res.errors.forEach(error => {
                 this.errorMessage += error.message + ".<br /> ";
@@ -123,16 +117,17 @@ export default {
             } else {
               this.errorMessage = "";
               this.$store.dispatch("authentication", true);
-              window.localStorage.setItem("access_token", res.body.info.access_token);
-              dashboard.click();
+              window.localStorage.setItem(
+                "access_token",
+                res.body.info.access_token
+              );
+              this.$router.push("/dashboard");
             }
           })
           .catch(err => {
             this.errorMessage = err.message;
           });
       } else {
-        console.log("register");
-
         this.$axios
           .$post(
             `client/register?language=fa&first_name=${data.first_name}&last_name=${data.last_name}&email=${data.email}`
@@ -150,12 +145,13 @@ export default {
               });
             } else {
               this.errorMessage = "";
-              this.errorMessage = "پسورد شما به ایمیلتان ارسال شد. برای ادامه وارد شوید"
+              this.errorMessage =
+                "پسورد شما به ایمیلتان ارسال شد. برای ادامه وارد شوید";
               loginButton.click();
             }
           })
           .catch(err => {
-            this.errorMessage = err.message;  
+            this.errorMessage = err.message;
           });
       }
     }

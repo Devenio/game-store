@@ -83,7 +83,6 @@ export default {
           headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => {
-          console.log(res);
           if(res.ok) {
             this.$store.dispatch("authentication", false);
             window.localStorage.removeItem("access_token");

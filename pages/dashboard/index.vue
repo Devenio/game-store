@@ -45,13 +45,49 @@
         class="w-full lg:w-3/4 mx-auto text-right mt-10 border-2 border-gray-700 rounded-sm p-3 text-xl text-gray-800"
       >
         <div class="w-full flex items-center justify-between">
-          <button
-            class="py-2 px-3 text-blue-600 border-2 border-blue-600 hover:text-white hover:bg-blue-600 text-xl"
-          >
-            افزایش موجودی
-          </button>
-          <p>موجودی شما: {{ userData.wallet | toRealPrice }} {{userData.currency === "toman" ? "تومان" : "Dollor"}}</p>
+          <div class="flex flex-col">
+            <button
+              class="py-2 px-3 text-blue-600 border-2 border-blue-600 hover:text-white hover:bg-blue-600 text-xl"
+              @click="walletIncrease()"
+            >
+              افزایش موجودی
+            </button>
+            <input
+              type="number"
+              class="mt-2 border-2 border-gray-800 p-2"
+              placeholder="مقدار افزایش موجودی"
+              v-model="amount"
+              id="amount-box"
+            />
+          </div>
+          <p>
+            موجودی شما: {{ walletBalance.body.info.balance | toRealPrice }}
+            {{ walletBalance.body.info.currency == "toman" ? "تومان" : "دلار" }}
+          </p>
         </div>
+      </div>
+      <div
+        class="w-full lg:w-3/4 mx-auto text-right mt-10 border-2 border-gray-700 rounded-sm p-3 text-xl text-gray-800 mb-10"
+      >
+        <div>:تاریخچه تراکنش ها</div>
+        <table class="w-full">
+          <tr class="text-center">
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">ردیف</th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">مبلغ</th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">زمان</th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">وضعیت</th>
+          </tr>
+          <tr
+            v-for="item in walletHistory.body.items"
+            :key="item.id"
+            class="divide-x-2 divide-gray-800 text-center"
+          >
+            <td>{{ item.id }}</td>
+            <td>{{ item.amount | toRealPrice }}</td>
+            <td>{{ item.payed_time | getTime }}</td>
+            <td>{{ item.status }}</td>
+          </tr>
+        </table>
       </div>
     </div>
 
@@ -66,7 +102,7 @@ import { mapGetters } from "vuex";
 export default {
   middleware: "Authentication",
   layout: "dashboard",
-  computed: mapGetters(["order", "currentTab", "userData"]),
+  computed: mapGetters(["order", "currentTab"]),
   filters: {
     calcTotalPrice: val => {
       let result = 0;
@@ -80,27 +116,62 @@ export default {
     },
     toRealPrice: val => {
       return val ? val.toLocaleString() : val;
+    },
+    getTime: val => {
+      return new Date(val * 1000).toISOString().substr(11, 8);
     }
   },
   data() {
     return {
-      panelItems: ["سبد خرید", "افزایش موجودی"]
+      panelItems: ["سبد خرید"],
+      amount: 0
     };
   },
-  asyncData({ $axios, store }) {
+  async asyncData({ $axios, store }) {
     const token = window.localStorage.getItem("access_token");
-    $axios
-      .$get(`/client/me?language=fa`, {
+
+    try {
+      // Get user information
+      const userData = await $axios.$get(`/client/me?language=fa`, {
         headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(res => {
-        console.log(res);
-        const userData = res.body.info[0];
-        store.dispatch("setUserData", userData);
-      })
-      .catch(err => {
-        console.log(err);
       });
+      store.dispatch("setUserData", userData.body.info[0]);
+      // Get wallet history
+      const walletHistory = await $axios.$get(`wallet/history?language=fa`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const walletBalance = await $axios.$get(`wallet/balance?language=fa`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      return { userData, walletHistory, walletBalance };
+    } catch (ex) {
+      console.log(ex);
+    }
+  },
+  methods: {
+    walletIncrease() {
+      const token = window.localStorage.getItem("access_token");
+      const amountBox = document.querySelector("#amount-box");
+
+      if (this.amount != 0) {
+        amountBox.classList.replace("border-red-500", "border-gray-800");
+        this.$axios
+          .$get(`wallet/increase?language=fa&amount=${this.amount}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          .then(res => {
+            if (res.ok) {
+              window.open(res.body.info.pay_link, "_blank");
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        amountBox.classList.replace("border-gray-800", "border-red-500");
+      }
+    }
   }
 };
 </script>
