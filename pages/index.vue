@@ -22,7 +22,7 @@
         :محصولات
       </h1>
       <div class="flex flex-wrap">
-        <product-info :data="productsInfo" />
+        <div class="w-full lg:w-2/5"><product-info :data="productsInfo" /></div>
         <div class="mx-auto w-full lg:w-3/5">
           <Product
             v-for="product in products.items"

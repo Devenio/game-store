@@ -1,35 +1,38 @@
 <template>
   <div
-    class="w-full bg-gradient-to-br from-red-600 via-red-700 to-red-600 flex items-center justify-around"
+    class="w-full bg-gray-800 flex items-center justify-around"
     style="height: 110px;"
   >
     <div class="text-center py-3">
-      <h1 class="text-xl sm:text-3xl font-semibold text-gray-100">
+      <h1 class="text-xl font-semibold text-gray-100">
         {{ data.name }}
       </h1>
-      <h3 class="text-lg sm:text-xl text-gray-100">{{ data.sub_name }}</h3>
-      <a :href="data.more_link" class="text-white underline">اطلاعات بیشتر</a>
+      <h3 class="text-lg text-gray-100">{{ data.sub_name }}</h3>
+      <a :href="data.more_link" class="text-white underline">
+        <fa :icon="['fas', 'angle-left']"></fa>
+        اطلاعات بیشتر
+      </a>
     </div>
 
-    <div class="w-1/2 sm:w-1/4 flex items-center justify-around">
+    <div class="flex items-center justify-around">
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
         id="days"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
         id="hours"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
         id="mins"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
         id="secs"
       ></div>
     </div>
