@@ -16,8 +16,8 @@
       />
     </VueSlickCarousel>
     <div class="text-center m-5 flex items-center justify-between">
-      <fa size="lg mx-5 text-gray-800" :icon="['fas', 'angle-left']" @click="showNext()"></fa>
-      <fa size="lg mx-5 text-gray-800" :icon="['fas', 'angle-right']" @click="showPrev()"></fa>
+      <fa class="lg mx-5 text-gray-800 cursor-pointer" :icon="['fas', 'angle-left']" @click="showNext()"></fa>
+      <fa class="lg mx-5 text-gray-800 cursor-pointer" :icon="['fas', 'angle-right']" @click="showPrev()"></fa>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import Product from "./product";
-import { mapGetters } from "Vuex";
+import { mapGetters } from "vuex";
 
 export default {
   data() {

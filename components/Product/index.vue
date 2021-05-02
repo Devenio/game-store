@@ -1,5 +1,5 @@
 <template>
-  <div class="px-3 w-full overflow-x-scroll">
+  <div class="px-3 w-full overflow-x-auto ">
     <div
       class="w-full flex items-center my-2 rounded-lg shadow-lg border-2 p-3 relative border-gray-800"
       :data-id="product.id"
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import { mapGetters } from "Vuex";
+import { mapGetters } from "vuex";
 
 export default {
   props: {

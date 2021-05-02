@@ -5,35 +5,35 @@
         <ul
           class="rtl w-full h-full list-none flex items-center text-right justify-center py-5"
         >
-          <nuxt-link
+          <a
             tag="li"
             class="mx-5 text-white cursor-pointer"
             :to="{ path: '/' }"
           >
             <u>قوانین و مقررات</u>
-          </nuxt-link>
+          </a>
           <div
             class="rounded-circle bg-white"
             style="width: 4px;height: 4px;"
           ></div>
-          <nuxt-link
+          <a
             tag="li"
             class="mx-5 text-white cursor-pointer"
             :to="{ path: '/' }"
           >
             <u>ارتباط با ما</u>
-          </nuxt-link>
+          </a>
           <div
             class="rounded-circle bg-white block"
             style="width: 4px;height: 4px;"
           ></div>
-          <nuxt-link
+          <a
             tag="li"
             class="mx-5 text-white cursor-pointer block"
             :to="{ path: '/' }"
           >
             <u>دسته بندی ها</u>
-          </nuxt-link>
+          </a>
         </ul>
       </div>
 
@@ -46,6 +46,11 @@
           <h3 class="text-white text-center text-base sm:text-lg md:text-right">
             مقایسه، انتخاب و خرید هوشمند اینترنتی با گیم لند
           </h3>
+          <p class="text-center sm:text-right text-gray-500">
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
+            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+          </p>
         </div>
 
         <div class="flex flex-col items-center mt-5 ">
@@ -54,34 +59,22 @@
             class="list-none mt-3 w-full flex items-center justify-center p-0"
           >
             <li>
-              <a
-                href=""
-                class="text-gray-400 mx-2"
-              >
+              <a href="" class="text-gray-400 mx-2">
                 <fa :icon="['fab', 'facebook']" size="2x"></fa>
               </a>
             </li>
             <li>
-              <a
-                href=""
-                class="text-gray-400 mx-2"
-              >
+              <a href="" class="text-gray-400 mx-2">
                 <fa :icon="['fab', 'instagram']" size="2x"></fa>
               </a>
             </li>
             <li>
-              <a
-                href=""
-                class="text-gray-400 mx-2"
-              >
+              <a href="" class="text-gray-400 mx-2">
                 <fa :icon="['fab', 'linkedin-in']" size="2x"></fa>
               </a>
             </li>
             <li>
-              <a
-                href=""
-                class="text-gray-400 mx-2"
-              >
+              <a href="" class="text-gray-400 mx-2">
                 <fa :icon="['fab', 'twitter']" size="2x"></fa>
               </a>
             </li>

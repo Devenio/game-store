@@ -10,6 +10,12 @@
         style="max-height:550px;"
         id="product-details-part"
       >
+        <div
+          class="w-full my-20 flex items-center justify-center"
+          v-if="!subCategory.items"
+        >
+          !! فعلا زیر دسته بندی ای وجود ندارد
+        </div>
         <sub-category
           v-for="item in subCategory.items"
           :key="item.id"
@@ -21,7 +27,7 @@
       <h1 class="text-right text-xl px-10 text-gray-800 my-3 mt-10">
         :محصولات
       </h1>
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap mb-10">
         <div class="w-full lg:w-2/5"><product-info :data="productsInfo" /></div>
         <div class="mx-auto w-full lg:w-3/5">
           <Product
@@ -29,6 +35,12 @@
             :key="product.id"
             :product="product"
           />
+          <div
+            class="w-full my-20 flex items-center justify-center"
+            v-if="!products.items"
+          >
+            !!فعلا محصولی وجود ندارد
+          </div>
         </div>
       </div>
     </div>
@@ -39,7 +51,7 @@
 import ProductSlider from "@/components/Slider/indexProductSlider/index";
 import Product from "@/components/Product/index";
 import ProductInfo from "@/components/Product/info";
-import { mapState } from "Vuex";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -70,9 +82,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(["subCategory", "products", "productsInfo"]),
-  },
-
+    ...mapState(["subCategory", "products", "productsInfo"])
+  }
 };
 </script>
 

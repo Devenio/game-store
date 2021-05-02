@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full" id="app">
     <app-header />
     <Offer />
     <Nuxt />
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style>
-*{
-  font-family: "persFont", "Helvetica"
+* {
+  font-family: "persFont", "Helvetica";
 }
 </style>
