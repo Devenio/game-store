@@ -39,11 +39,7 @@
     >
       <div class="w-screen h-full">
         <div class="flex items-center justify-center py-10">
-          <img
-            alt="superz logo"
-            style="width:240px"
-            src="/logotest.svg"
-          />
+          <img alt="superz logo" style="width:240px" src="/logotest.svg" />
         </div>
         <div class="w-full px-5">
           <ul class="flex flex-col items-end">
@@ -81,24 +77,32 @@ export default {
           icon: {
             type: "fas",
             name: "user-circle"
-          },
+          }
         },
+        // {
+        //   title: "اخذ نمایندگی",
+        //   path: "/",
+        //   icon: {
+        //     type: "fas",
+        //     name: "headset"
+        //   }
+        // },
+        // {
+        //   title: "اپلیکیشن سایت",
+        //   path: "/",
+        //   icon: {
+        //     type: "fas",
+        //     name: "mobile-alt"
+        //   }
+        // },
         {
-          title: "اخذ نمایندگی",
+          title: "صفحه اصلی",
           path: "/",
           icon: {
             type: "fas",
-            name: "headset"
-          },
-        },
-        {
-          title: "اپلیکیشن سایت",
-          path: "/",
-          icon: {
-            type: "fas",
-            name: "mobile-alt"
-          },
-        },
+            name: "home"
+          }
+        }
       ],
       isMenuClosed: true,
       openSearchBar: false

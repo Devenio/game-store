@@ -1,6 +1,6 @@
 <template>
-  <div class="px-3 w-full">
-    <div class="w-full p-3 bg-white rounded-lg">
+  <div class="px-3 border-2 border-gray-200 rounded-lg mx-auto">
+    <div class="w-full p-3 bg-white rounded-lg mx-auto" style="width: 360px;">
       <h1 class="text-right text-xl">:توضیحات</h1>
       <progressbar
         v-for="(prop, index) in data.property"

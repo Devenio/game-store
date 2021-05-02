@@ -1,7 +1,7 @@
 <template>
   <div class="px-3 sm:w-1/2 w-full">
     <div
-      class="w-full flex flex-col items-center bg-gray-100 my-2 rounded-lg border-2 border-gray-300"
+      class="w-full flex flex-col items-center bg-gray-100 m-2 rounded-lg shadow-lg"
       :data-id="product.id"
     >
       <div class="w-full flex">
@@ -12,7 +12,7 @@
         />
         <div class="flex-grow text-right py-2 px-3 text-lg">
           <div
-            class="p-1 m-2 bg-red-600 text-center text-white"
+            class="p-1 m-2 bg-gradient-to-br from-red-500 via-red-700 to-red-500 text-center text-white"
             v-if="product.discount"
           >
             {{ product.discount }}% تخفیف
@@ -40,7 +40,10 @@
             تومان
           </div>
 
-          <div :class="product.in_stock ? 'text-green-600' : 'text-red-600'" v-if="!isPanel">
+          <div
+            :class="product.in_stock ? 'text-green-600' : 'text-red-600'"
+            v-if="!isPanel"
+          >
             موجود
             {{ product.in_stock ? "میباشد" : "نمی باشد" }}
           </div>
@@ -121,25 +124,25 @@ export default {
   methods: {
     increment() {
       if (this.counter >= this.product.max_count) {
-        this.toggleCounterBoxStatus(true)
+        this.toggleCounterBoxStatus(true);
         return;
       }
-      this.toggleCounterBoxStatus(false)
+      this.toggleCounterBoxStatus(false);
       this.counter++;
     },
     decrement() {
       if (this.counter <= 0) {
-        this.toggleCounterBoxStatus(true)
+        this.toggleCounterBoxStatus(true);
         return;
       }
-      this.toggleCounterBoxStatus(false)
+      this.toggleCounterBoxStatus(false);
       this.counter--;
     },
     addCart() {
       if (this.counter === 0) {
-        this.toggleCounterBoxStatus(true)
+        this.toggleCounterBoxStatus(true);
       } else {
-        this.toggleCounterBoxStatus(false)
+        this.toggleCounterBoxStatus(false);
         let order = {
           product: this.product,
           product_number: this.counter

@@ -51,5 +51,7 @@ export default {
 
   axios: {
     baseURL: "https://api.gameland.rubikto.com/api/v1"
-  }
+  },
+
+  target: "static"
 };

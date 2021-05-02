@@ -5,12 +5,16 @@
     :data-id="id"
     @click="getSubCategory()"
   >
-    <div class="w-full h-full shadow-lg rounded-xl relative">
-      <img :src="cover" alt="picture" class="object-center object-cover w-full" />
+    <div class="w-full h-full shadow-xl rounded-xl relative border-2 border-gray-800 overflow-hidden">
+      <img
+        :src="cover"
+        :alt="name"
+        class="object-center object-cover w-full"
+      />
       <div
-        class="absolute bottom-0 w-full py-3 z-20 bg-black opacity-50 text-white text-center"
+        class="absolute bottom-0 w-full py-2 z-20 bg-black opacity-50 text-white text-left px-3 title"
       >
-        <h1 class="text-2xl">{{ name }}</h1>
+        <h1 class="text-xl">{{ name }}</h1>
       </div>
     </div>
   </div>
@@ -31,7 +35,7 @@ export default {
       this.$axios
         .$get(`index/GetSubCategory?language=fa&category_id=${productId}`)
         .then(res => {
-          this.$store.dispatch("setSubCategoryItems", res.body)
+          this.$store.dispatch("setSubCategoryItems", res.body);
         })
         .catch(err => {
           console.log(err);
@@ -44,5 +48,8 @@ export default {
 <style scoped>
 .product-wrapper {
   height: 250px;
+}
+.title {
+  clip-path: polygon(0 0, 50% 0, 70% 100%, 0% 100%);
 }
 </style>

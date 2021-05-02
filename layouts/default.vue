@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full bg-gray-200">
+  <div class="w-full">
     <app-header />
-    <Offer v-if="offer" :data="offer" />
+    <Offer />
     <Nuxt />
     <Footer />
   </div>
@@ -15,23 +15,12 @@ export default {
   components: {
     appHeader: Header,
     Footer
-  },
-  data() {
-    return {
-      offer: {}
-    };
-  },
-  mounted() {
-    this.$axios
-      .$get("index/GetOffer?language=fa")
-      .then(res => {
-        this.offer = res.body[0];
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 };
 </script>
 
-<style></style>
+<style>
+*{
+  font-family: "persFont", "Helvetica"
+}
+</style>

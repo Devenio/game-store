@@ -1,5 +1,6 @@
 <template>
   <div class="relative">
+    <h1 class="text-right text-xl px-10 text-gray-800 my-3">:دسته بندی ها</h1>
     <VueSlickCarousel
       v-bind="setting"
       ref="carousel"
@@ -14,6 +15,10 @@
         :id="item.id"
       />
     </VueSlickCarousel>
+    <div class="text-center m-5 flex items-center justify-between">
+      <fa size="lg mx-5 text-gray-800" :icon="['fas', 'angle-left']" @click="showNext()"></fa>
+      <fa size="lg mx-5 text-gray-800" :icon="['fas', 'angle-right']" @click="showPrev()"></fa>
+    </div>
   </div>
 </template>
 

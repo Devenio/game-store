@@ -1,10 +1,12 @@
 <template>
   <div
-    class="w-full bg-red-700 flex items-center justify-around"
+    class="w-full bg-gradient-to-br from-red-600 via-red-700 to-red-600 flex items-center justify-around"
     style="height: 110px;"
   >
     <div class="text-center py-3">
-      <h1 class="text-xl sm:text-3xl font-semibold text-gray-100">{{ data.name }}</h1>
+      <h1 class="text-xl sm:text-3xl font-semibold text-gray-100">
+        {{ data.name }}
+      </h1>
       <h3 class="text-lg sm:text-xl text-gray-100">{{ data.sub_name }}</h3>
       <a :href="data.more_link" class="text-white underline">more link</a>
     </div>
@@ -36,10 +38,24 @@
 
 <script>
 export default {
+  data() {
+    return {
+      data: {}
+    };
+  },
   mounted() {
-    // The data/time we want to countdown to
-
-    setTimeout(() => {
+    this.$axios
+      .$get("index/GetOffer?language=fa")
+      .then(res => {
+        this.data = res.body[0];
+        this.countDown();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  methods: {
+    countDown() {
       console.log(this.data.until_date * 1000);
       var countDownDate = +this.data.until_date * 1000;
 
@@ -72,10 +88,7 @@ export default {
           document.getElementById("end").innerHTML = "TIME UP!!";
         }
       }, 1000);
-    }, 1500);
-  },
-  props: {
-    data: Object
+    }
   }
 };
 </script>

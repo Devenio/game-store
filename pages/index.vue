@@ -2,9 +2,12 @@
   <div class="w-full">
     <div class="container mx-auto">
       <product-slider class="my-10"></product-slider>
+      <h1 class="text-right text-xl px-10 text-gray-800 my-3">
+        :زیر دسته بندی ها
+      </h1>
       <div
-        class=" relative transition-all duration-500 rounded-lg my-10 flex items-center justify-start overflow-x-auto"
-        style="max-height:500px;"
+        class="relative transition-all duration-500 rounded-lg mx-10 flex items-center justify-start overflow-x-auto"
+        style="max-height:550px;"
         id="product-details-part"
       >
         <sub-category
@@ -15,7 +18,9 @@
           :id="item.id"
         />
       </div>
-
+      <h1 class="text-right text-xl px-10 text-gray-800 my-3 mt-10">
+        :محصولات
+      </h1>
       <div class="flex flex-wrap">
         <product-info :data="productsInfo" />
         <Product
@@ -42,7 +47,7 @@ export default {
   },
   data() {
     return {
-      isClosed: false,
+      isClosed: false
     };
   },
   methods: {
