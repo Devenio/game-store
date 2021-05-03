@@ -16,8 +16,8 @@
       </div>
       <div class="w-1/4 text-center">
         <p>
-          <strong> {{ $t("product.name") }}: </strong>
           {{ product.name }}
+          <strong> {{ $t("product.name") }} </strong>
         </p>
 
         <div :class="product.discount ? ['line-through', 'text-gray-600'] : ''">

@@ -17,22 +17,22 @@
     <div class="flex items-center justify-around">
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl clipPath"
         id="days"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl clipPath"
         id="hours"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl clipPath"
         id="mins"
       ></div>
       <div
         style="width:50px;height:50px;"
-        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl"
+        class="flex items-center justify-center mx-1 bg-gray-300 sm:text-xl clipPath"
         id="secs"
       ></div>
     </div>
@@ -97,4 +97,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.clipPath {
+  clip-path: polygon(30% 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 0 30%);
+}
+</style>

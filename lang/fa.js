@@ -27,7 +27,7 @@ export default {
   offer: "اطلاعات بیشتر",
   product: {
     price: "قیمت",
-    name: "نام محصول",
+    name: ":نام محصول",
     disc: "تخفیف",
     inStock: "موجود میباشد",
     notInStock: "موجود نمیباشد",

@@ -3,7 +3,7 @@
     <div class="container mx-auto mt-7 py-3">
       <div class="w-full">
         <ul
-          class="rtl w-full h-full list-none flex items-center justify-center py-5" 
+          class="rtl w-full h-full list-none flex items-center justify-center py-5"
         >
           <a
             tag="li"
@@ -40,13 +40,28 @@
       <div class="w-11/12 bg-gray-100 mx-auto" style="height: 1px;"></div>
 
       <div
-        class="text-right w-full p-4 flex flex-col items-center justify-around" :class="$i18n.getLocaleCookie() == 'fa' ? 'md:flex-row-reverse' : 'md:flex-row'"
+        class="text-right w-full p-4 flex flex-col items-center justify-around"
+        :class="
+          $i18n.getLocaleCookie() == 'fa'
+            ? 'md:flex-row-reverse'
+            : 'md:flex-row'
+        "
       >
         <div class="mt-5 md:mt-0 md:w-1/2">
-          <h3 class="text-white text-center text-base sm:text-lg" :class="$i18n.getLocaleCookie() == 'fa' ? 'md:text-right' : 'md:text-left'">
+          <h3
+            class="text-white text-center text-base sm:text-lg"
+            :class="
+              $i18n.getLocaleCookie() == 'fa' ? 'md:text-right' : 'md:text-left'
+            "
+          >
             {{ $t("footer.title") }}
           </h3>
-          <p class="text-center text-gray-500" :class="$i18n.getLocaleCookie() == 'fa' ? 'sm:text-right' : 'sm:text-left'">
+          <p
+            class="text-center text-gray-500"
+            :class="
+              $i18n.getLocaleCookie() == 'fa' ? 'sm:text-right' : 'sm:text-left'
+            "
+          >
             {{ $t("footer.desc") }}
           </p>
         </div>
@@ -81,9 +96,7 @@
       </div>
       <div class="text-gray-300 mt-3 text-sm">
         <div class="text-center">
-          <p class="">
-            &copy; {{ $t("footer.cr") }}
-          </p>
+          <p class="">&copy; {{ $t("footer.cr") }}</p>
         </div>
       </div>
     </div>
@@ -94,4 +107,4 @@
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

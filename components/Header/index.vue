@@ -28,13 +28,14 @@
       </ul>
 
       <nuxt-link :to="{ path: '/' }">
-        <img
+        <!-- <img
           alt="superz logo"
           class="sm:block"
           style="width: 240px;"
           :class="openSearchBar ? 'hidden' : ''"
           src="/logotest.svg"
-        />
+        /> -->
+        Your Logo
       </nuxt-link>
 
       <div class="sm:hidden cursor-pointer" @click="toggleMenu()">
@@ -73,7 +74,7 @@
               :to="localePath({ path: item.path }, $i18n.getLocaleCookie())"
               class="my-3 cursor-pointer font-medium flex items-center"
             >
-              {{ item.title }}
+              {{ $t(`${item.title}`) }}
               <fa
                 :icon="[item.icon.type, item.icon.name]"
                 size="lg"

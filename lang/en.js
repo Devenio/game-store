@@ -28,7 +28,7 @@ export default {
   offer: "More",
   product: {
     price: "price",
-    name: "name",
+    name: ":name",
     disc: "discount",
     inStock: "in stock",
     notInStock: "not exist",

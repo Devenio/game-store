@@ -1,8 +1,7 @@
 <template>
   <div
     :id="`subCategory-${id}`"
-    class="relative overflow-hidden m-3 rounded-lg transform"
-    :class="id % 2 === 0 ? ['translate-y-2'] : ['-translate-y-2']"
+    class="relative overflow-hidden m-3 rounded-lg transform cursor-pointer"
     :data-id="id"
     style="min-width: 160px;"
     @click="getProduct()"

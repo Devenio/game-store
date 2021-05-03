@@ -22,7 +22,7 @@
     </div>
 
     <div
-      class="w-screen h-screen bg-black opacity-50 absolute top-0 right-0 z-10"
+      class="w-screen h-screen bg-black opacity-50 absolute top-0 right-0 z-30"
       v-if="openMenu"
       @click="openMenu = !openMenu"
     ></div>
