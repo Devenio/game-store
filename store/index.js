@@ -6,7 +6,9 @@ export const state = () => ({
   order: [],
   authenticated: false,
   userData: {},
-  currentTab: ""
+  currentTab: "",
+  locale: "fa",
+  token: ""
 });
 
 export const getters = {
@@ -34,6 +36,12 @@ export const getters = {
   currentTab: state => {
     return state.currentTab;
   },
+  locale: state => {
+    return state.locale;
+  },
+  token: state => {
+    return state.token;
+  }
 };
 
 export const mutations = {
@@ -61,6 +69,12 @@ export const mutations = {
   SET_CURRENT_TAB: (state, payload) => {
     state.currentTab = payload;
   },
+  SET_LOCALE: (state, payload) => {
+    state.locale = payload;
+  },
+  SET_TOKEN: (state, payload) => {
+    state.token = payload;
+  }
 };
 
 export const actions = {
@@ -86,4 +100,10 @@ export const actions = {
   setCurrentTab: ({ commit }, tab) => {
     commit("SET_CURRENT_TAB", tab);
   },
+  setLocale: ({ commit }, locale) => {
+    commit("SET_LOCALE", locale);
+  },
+  setToken: ({commit}, token) => {
+    commit("SET_TOKEN", token);
+  }
 };

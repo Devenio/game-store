@@ -9,30 +9,30 @@
         class="p-1 bg-gradient-to-br from-red-500 via-red-700 to-red-500 text-center text-white absolute top-0 left-0"
         v-if="product.discount"
       >
-        {{ product.discount }}% تخفیف
+        {{ product.discount }}% {{ $t("product.disc") }}
       </div>
       <div class="">
         <img :src="product.cover" :alt="product.name" class="h-full" />
       </div>
       <div class="w-1/4 text-center">
         <p>
+          <strong> {{ $t("product.name") }}: </strong>
           {{ product.name }}
-          :نام محصول
         </p>
 
         <div :class="product.discount ? ['line-through', 'text-gray-600'] : ''">
-          قیمت:
+          <strong> {{ $t("product.price") }}: </strong>
           {{ product.price | makePriceNum }}
-          تومان
+          {{ $t("product.currency") }}
         </div>
 
         <div v-if="product.discount">
-          قیمت:
+          <strong> {{ $t("product.price") }}: </strong>
           {{
             (product.price - (product.discount / 100) * product.price)
               | makePriceNum
           }}
-          تومان
+          {{ $t("product.currency") }}
         </div>
       </div>
       <div class="flex items-center w-1/4" v-if="!isPanel">
@@ -65,21 +65,22 @@
           class="bg-blue-500 px-2 sm:px-5 py-2 tracking-wider text-white rounded-full hover:bg-blue-600"
           :class="product.in_stock ? '' : 'opacity-50'"
           @click="addCart()"
-          v-if="! isPanel"
+          v-if="!isPanel"
         >
-          {{ product.in_stock ? "افزودن به سبد خرید" : "موجود نیست" }}
+          {{ product.in_stock ? $t("product.buy") : $t("product.notInStock") }}
         </button>
         <div
           :class="product.in_stock ? 'text-green-600' : 'text-red-600'"
           class="text-right"
           v-if="!isPanel"
         >
-          موجود
-          {{ product.in_stock ? "میباشد" : "نمی باشد" }}
+          {{
+            product.in_stock ? $t("product.inStock") : $t("product.notInStock")
+          }}
         </div>
         <p v-if="isPanel">
           {{ product_num }}
-          :تعداد
+          :{{ $t("product.number") }}
         </p>
       </div>
       <!-- <div class="w-full flex">

@@ -5,13 +5,13 @@
     >
       <div class="text-right my-1">
         {{ userData.first_name + " " + userData.last_name }}
-        :نام
+        : <strong>{{ $t("panel.header.name") }}</strong>
         <br />
         {{ userData.email }}
-        :ایمیل
+        : <strong>{{ $t("panel.header.email") }}</strong>
         <br />
         {{ userData.phone_number }}
-        :شماره تلفن
+        : <strong>{{ $t("panel.header.phoneNum") }}</strong>
       </div>
       <fa
         :icon="['fas', 'bars']"
@@ -38,24 +38,32 @@
           class="py-3 text-center text-gray-100 text-lg hover:bg-gray-800 cursor-pointer"
           @click="openMenu = !openMenu"
         >
-          خانه
+          {{ $t("navItems.home") }}
         </nuxt-link>
         <li
           class="py-3 text-center text-gray-100 text-lg hover:bg-gray-800 cursor-pointer"
-          v-for="(item, index) in panelItems"
-          :key="index"
-          @click="tabClicked(index)"
-          :data-tab="index"
-          :id="`tab-${index}`"
+          @click="tabClicked(0)"
+          data-tab="0"
+          id="tab-0"
         >
-          {{ item }}
+          {{ $t("panel.cartTitle") }}
         </li>
         <li
           class="py-3 text-center text-red-500 text-lg hover:bg-gray-800 cursor-pointer"
           @click="logout()"
         >
-          خروج از حساب
+          {{ $t("navItems.logout") }}
         </li>
+        <select
+          name="lang"
+          id="lang"
+          class="p-3 text-center text-white text-lg hover:bg-gray-800 cursor-pointer bg-transparent w-full"
+          @change="setLocale($event)"
+        >
+          <option value="">{{ $t("lang") }}</option>
+          <option value="fa">فارسی</option>
+          <option value="en">English</option>
+        </select>
       </ul>
     </div>
   </div>
@@ -66,7 +74,6 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      panelItems: ["سبد خرید"],
       openMenu: false
     };
   },
@@ -76,6 +83,14 @@ export default {
       this.openMenu = !this.openMenu;
       this.$store.dispatch("setCurrentTab", tab.dataset.tab);
     },
+    setLocale(event) {
+      if (event.target.value) {
+        localStorage.setItem("locale", event.target.value);
+        this.$store.dispatch("setLocale", event.target.value);
+        this.$i18n.setLocaleCookie(event.target.value);
+        this.$i18n.setLocale(event.target.value);
+      }
+    },
     logout() {
       const token = window.localStorage.getItem("access_token");
       this.$axios
@@ -83,10 +98,10 @@ export default {
           headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => {
-          if(res.ok) {
+          if (res.ok) {
             this.$store.dispatch("authentication", false);
             window.localStorage.removeItem("access_token");
-            this.$router.push("/")
+            this.$router.push("/");
           }
         })
         .catch(err => {

@@ -34,7 +34,7 @@ export default {
       const id = subCategory.id;
 
       this.$axios
-        .$get(`index/GetProducts?language=fa&sub_category_id=${id}`)
+        .$get(`index/GetProducts?language=${this.$i18n.getLocaleCookie()}&sub_category_id=${id}`)
         .then(res => {
           this.$store.dispatch("setProducts", res);
         })

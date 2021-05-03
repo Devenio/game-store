@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen py-16 flex items-center justify-center flex-col">
     <h1 class="text-xl font-semibold my-5">
-      ابتدا باید در سایت ثبت نام کنید یا وارد شوید
+      {{$t("login.title")}}
     </h1>
     <div
       style="height: 500px;"
@@ -9,66 +9,90 @@
     >
       <div class="w-full flex divide-x-2 divide-gray-700">
         <div
-          class="flex-grow text-center text-lg bg-white py-5"
+          class="flex-grow text-center text-lg bg-white py-5 cursor-pointer"
           @click="isLogin = false"
         >
-          ثبت نام
+          {{ $t("login.reg") }}
         </div>
         <div
-          class="flex-grow text-center text-lg bg-white py-5"
+          class="flex-grow text-center text-lg bg-white py-5 cursor-pointer"
           @click="isLogin = true"
           id="login-button"
         >
-          ورود
+          {{ $t("login.log") }}
         </div>
       </div>
       <form
         class="w-full h-3/4 flex flex-col justify-center items-center flex-grow"
       >
         <h1 class="text-xl my-5 text-white">
-          {{ isLogin ? "ورود" : "ثبت نام" }}
+          {{ isLogin ? $t("login.log") : $t("login.reg") }}
         </h1>
+
+        <!--  -->
         <input
           type="text"
           class="w-3/4 p-3 my-3 text-right"
-          placeholder="نام خود را وارد کنید"
+          :placeholder="
+            $i18n.getLocaleCookie() == 'fa'
+              ? 'نام خود را وارد کنید'
+              : 'Enter your first name'
+          "
           v-if="!isLogin"
           v-model="registerData.first_name"
         />
         <input
           type="text"
           class="w-3/4 p-3 my-3 text-right"
-          placeholder="نام خانوادگی خود را وارد کنید"
+          :placeholder="
+            $i18n.getLocaleCookie() == 'fa'
+              ? 'نام خانوادگی خود را وارد کنید'
+              : 'Enter your last name'
+          "
           v-if="!isLogin"
           v-model="registerData.last_name"
         />
         <input
           type="text"
           class="w-3/4 p-3 my-3 text-right"
-          placeholder="ایمیل خود را وارد کنید"
+          :placeholder="
+            $i18n.getLocaleCookie() == 'fa'
+              ? 'ایمیل خود را وارد کنید'
+              : 'Enter your email'
+          "
           v-model="registerData.email"
           v-if="!isLogin"
         />
         <input
           type="text"
           class="w-3/4 p-3 my-3 text-right"
-          placeholder="ایمیل خود را وارد کنید"
+          :placeholder="
+            $i18n.getLocaleCookie() == 'fa'
+              ? 'ایمیل خود را وارد کنید'
+              : 'Enter your email'
+          "
           v-model="loginData.email"
           v-if="isLogin"
         />
         <input
           type="password"
           class="w-3/4 p-3 my-3 text-right"
-          placeholder="پسورد خود را وارد کنید"
+          :placeholder="
+            $i18n.getLocaleCookie() == 'fa'
+              ? 'پسورد خود را وارد کنید'
+              : 'Enter your password'
+          "
           v-if="isLogin"
           v-model="loginData.password"
         />
+
+        <!--  -->
         <button
           type="submit"
           class="w-3/4 p-3 my-3 bg-blue-500 text-xl"
           @click.prevent="userLogin()"
         >
-          {{ isLogin ? "ورود" : "ثبت نام" }}
+          {{ isLogin ? $t("login.log") : $t("login.reg") }}
         </button>
       </form>
     </div>
@@ -106,7 +130,9 @@ export default {
       if (this.isLogin) {
         this.$axios
           .$post(
-            `client/login?language=fa&password=${data.password}&username=${data.email}`
+            `client/login?language=${this.$i18n.getLocaleCookie()}&password=${
+              data.password
+            }&username=${data.email}`
           )
           .then(res => {
             if (res.errors) {
@@ -117,6 +143,7 @@ export default {
             } else {
               this.errorMessage = "";
               this.$store.dispatch("authentication", true);
+              this.$store.dispatch("setToken", res.body.info.access_token);
               window.localStorage.setItem(
                 "access_token",
                 res.body.info.access_token
@@ -130,14 +157,16 @@ export default {
       } else {
         this.$axios
           .$post(
-            `client/register?language=fa&first_name=${data.first_name}&last_name=${data.last_name}&email=${data.email}`
+            `client/register?language=${this.$i18n.getLocaleCookie()}&first_name=${
+              data.first_name
+            }&last_name=${data.last_name}&email=${data.email}`
           )
           .then(res => {
             if (res.errors) {
               this.errorMessage = "";
               res.errors.forEach(error => {
                 if (error.message == "User already registered") {
-                  this.errorMessage = "این ایمیل قبلا ثبت شده.";
+                  this.errorMessage = error.message;
                   loginButton.click();
                 } else {
                   this.errorMessage += error.message + ".<br /> ";
@@ -155,6 +184,10 @@ export default {
           });
       }
     }
+  },
+  mounted() {
+    console.log(this.$i18n.getLocaleCookie());
+    this.$i18n.setLocale(localStorage.getItem("locale"));
   }
 };
 </script>

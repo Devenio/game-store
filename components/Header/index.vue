@@ -9,7 +9,7 @@
           v-for="item in navbarItems"
           :key="item.id"
           tag="li"
-          :to="{ path: item.path }"
+          :to="localePath({ path: item.path }, $i18n.getLocaleCookie())"
           class="mx-3 cursor-pointer font-medium"
         >
           {{ $t(`${item.title}`) }}
@@ -70,7 +70,7 @@
               v-for="item in navbarItems"
               :key="item.id"
               tag="li"
-              :to="{ path: item.path }"
+              :to="localePath({ path: item.path }, $i18n.getLocaleCookie())"
               class="my-3 cursor-pointer font-medium flex items-center"
             >
               {{ item.title }}
@@ -127,6 +127,8 @@ export default {
     },
     setLocale(event) {
       if (event.target.value) {
+        localStorage.setItem("locale", event.target.value);
+        this.$store.dispatch("setLocale", event.target.value);
         this.$i18n.setLocaleCookie(event.target.value);
         this.$i18n.setLocale(event.target.value);
       }

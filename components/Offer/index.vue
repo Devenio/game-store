@@ -10,7 +10,7 @@
       <h3 class="text-lg text-gray-100">{{ data.sub_name }}</h3>
       <a :href="data.more_link" class="text-white underline">
         <fa :icon="['fas', 'angle-left']"></fa>
-        اطلاعات بیشتر
+        {{ $t("offer") }}
       </a>
     </div>
 
@@ -48,7 +48,7 @@ export default {
   },
   mounted() {
     this.$axios
-      .$get("index/GetOffer?language=fa")
+      .$get(`index/GetOffer?language=${this.$i18n.getLocaleCookie()}`)
       .then(res => {
         this.data = res.body[0];
         this.countDown();

@@ -86,6 +86,9 @@ export default {
   },
   computed: {
     ...mapState(["subCategory", "products", "productsInfo"])
+  },
+  mounted() {
+    this.$i18n.setLocale(localStorage.getItem("locale"));
   }
 };
 </script>

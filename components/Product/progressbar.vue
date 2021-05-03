@@ -1,5 +1,12 @@
 <template>
-  <div class="flex w-full items-center justify-end my-3">
+  <div
+    class="flex w-full items-center my-3"
+    :class="
+      $i18n.getLocaleCookie() == 'fa'
+        ? ['flex-row', 'justify-end']
+        : ['flex-row-reverse', 'justify-end']
+    "
+  >
     <div
       class="border-2 border-green-300 bg-green-300 relative rounded-full"
       style="width:200px;height:15px;"
@@ -9,7 +16,7 @@
         :id="`progress-${id}`"
       ></div>
     </div>
-    <h3 class="text-lg ml-5 text-gray-600">{{ property }}</h3>
+    <h3 class="text-lg mx-5 text-gray-600">{{ property }}</h3>
   </div>
 </template>
 
@@ -22,7 +29,7 @@ export default {
   },
   mounted() {
     const progress = document.querySelector(`#progress-${this.id}`);
-    if(progress) {
+    if (progress) {
       progress.style = `width: ${this.percent}%`;
     }
   }

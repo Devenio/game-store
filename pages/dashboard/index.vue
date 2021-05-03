@@ -1,11 +1,11 @@
 <template>
   <div class="container mx-auto min-h-screen">
     <!-- Cart -->
-    <div v-if="currentTab == 0">
+    <div v-if="currentTab == 0 && !$fetchState.pending">
       <div
         class="text-gray-800 text-lg p-3 border-b-2 border-gray-700 text-center mb-10 w-full lg:w-3/4 mx-auto"
       >
-        سبد خرید
+        {{ $t("panel.cartTitle") }}
       </div>
       <div class="flex flex-wrap">
         <div class="w-full lg:w-3/4 mx-auto">
@@ -13,7 +13,7 @@
             class="w-full py-20 flex items-center justify-center"
             v-if="order.length == 0"
           >
-            هیچ محصولی در سبد خرید شما وجود ندارد !!
+            {{ $t("panel.cartMsg") }}
           </div>
           <Product
             v-for="ord in order"
@@ -30,15 +30,15 @@
         <div
           class="text-gray-800 text-lg p-3 border-b-2 border-gray-700 text-right"
         >
-          قیمت کل:
+          {{ $t("panel.tPrice") }}:
           {{ order | calcTotalPrice }}
-          تومان
+          {{ $t("product.currency") }}
         </div>
         <button
           type="submit"
           class="w-1/3 p-3 text-blue-600 border-2 border-blue-600 hover:text-white hover:bg-blue-600 text-xl"
         >
-          پرداخت
+          {{ $t("panel.pay") }}
         </button>
       </div>
       <div
@@ -50,32 +50,45 @@
               class="py-2 px-3 text-blue-600 border-2 border-blue-600 hover:text-white hover:bg-blue-600 text-xl"
               @click="walletIncrease()"
             >
-              افزایش موجودی
+              {{ $t("panel.incInv") }}
             </button>
             <input
               type="number"
               class="mt-2 border-2 border-gray-800 p-2"
-              placeholder="مقدار افزایش موجودی"
+              :placeholder="
+                $i18n.getLocaleCookie() == 'fa'
+                  ? 'مقدار افزایش موجودی'
+                  : 'Amount of inventory increase'
+              "
               v-model="amount"
               id="amount-box"
             />
           </div>
           <p>
-            موجودی شما: {{ walletBalance.body.info.balance | toRealPrice }}
-            {{ walletBalance.body.info.currency == "toman" ? "تومان" : "دلار" }}
+            {{ $t("panel.inv") }}:
+            {{ walletBalance.body.info.balance | toRealPrice }}
+            {{ walletBalance.body.info.currency == "toman" ? "تومان" : "$" }}
           </p>
         </div>
       </div>
       <div
         class="w-full lg:w-3/4 mx-auto text-right mt-10 border-2 border-gray-700 rounded-sm p-3 text-xl text-gray-800 mb-10"
       >
-        <div>:تاریخچه تراکنش ها</div>
+        <div class="mb-3" :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'">{{ $t("panel.th") }}</div>
         <table class="w-full">
           <tr class="text-center">
-            <th class="p-1 bg-gray-300 border-2 border-gray-800">ردیف</th>
-            <th class="p-1 bg-gray-300 border-2 border-gray-800">مبلغ</th>
-            <th class="p-1 bg-gray-300 border-2 border-gray-800">زمان</th>
-            <th class="p-1 bg-gray-300 border-2 border-gray-800">وضعیت</th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">
+              {{ $t("panel.table.row") }}
+            </th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">
+              {{ $t("panel.table.price") }}
+            </th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">
+              {{ $t("panel.table.time") }}
+            </th>
+            <th class="p-1 bg-gray-300 border-2 border-gray-800">
+              {{ $t("panel.table.status") }}
+            </th>
           </tr>
           <tr
             v-for="item in walletHistory.body.items"
@@ -102,7 +115,7 @@ import { mapGetters } from "vuex";
 export default {
   middleware: "Authentication",
   layout: "dashboard",
-  computed: mapGetters(["order", "currentTab"]),
+  computed: mapGetters(["order", "currentTab", "token"]),
   filters: {
     calcTotalPrice: val => {
       let result = 0;
@@ -124,27 +137,43 @@ export default {
   data() {
     return {
       panelItems: ["سبد خرید"],
-      amount: 0
+      amount: 0,
+      userData: {},
+      walletHistory: {},
+      walletBalance: {}
     };
   },
-  async asyncData({ $axios, store }) {
-    const token = window.localStorage.getItem("access_token");
+  async fetch() {
+    const token = this.token;
+    console.log(token);
 
     try {
       // Get user information
-      const userData = await $axios.$get(`/client/me?language=fa`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      store.dispatch("setUserData", userData.body.info[0]);
+      const userData = await this.$axios.$get(
+        `/client/me?language=${this.$i18n.getLocaleCookie()}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      this.$store.dispatch("setUserData", userData.body.info[0]);
       // Get wallet history
-      const walletHistory = await $axios.$get(`wallet/history?language=fa`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const walletBalance = await $axios.$get(`wallet/balance?language=fa`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const walletHistory = await this.$axios.$get(
+        `wallet/history?language=${this.$i18n.getLocaleCookie()}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      const walletBalance = await this.$axios.$get(
+        `wallet/balance?language=${this.$i18n.getLocaleCookie()}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
 
-      return { userData, walletHistory, walletBalance };
+      // return { userData, walletHistory, walletBalance };
+      this.userData = userData;
+      this.walletHistory = walletHistory;
+      this.walletBalance = walletBalance;
     } catch (ex) {
       console.log(ex);
     }
@@ -157,9 +186,14 @@ export default {
       if (this.amount != 0) {
         amountBox.classList.replace("border-red-500", "border-gray-800");
         this.$axios
-          .$get(`wallet/increase?language=fa&amount=${this.amount}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          })
+          .$get(
+            `wallet/increase?language=${this.$i18n.getLocaleCookie()}&amount=${
+              this.amount
+            }`,
+            {
+              headers: { Authorization: `Bearer ${token}` }
+            }
+          )
           .then(res => {
             if (res.ok) {
               window.open(res.body.info.pay_link, "_blank");
@@ -172,6 +206,9 @@ export default {
         amountBox.classList.replace("border-gray-800", "border-red-500");
       }
     }
+  },
+  mounted() {
+    this.$i18n.setLocale(localStorage.getItem("locale"));
   }
 };
 </script>
