@@ -18,6 +18,9 @@ export default {
   },
   head() {
     return this.$nuxtI18nHead();
+  },
+  mounted() {
+    this.$i18n.setLocale(this.$i18n.getLocaleCookie());
   }
 };
 </script>

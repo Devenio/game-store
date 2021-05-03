@@ -1,6 +1,11 @@
 <template>
   <div class="relative">
-    <h1 class="text-right text-xl px-10 text-gray-800 my-3">:دسته بندی ها</h1>
+    <h1
+      class="text-xl px-10 text-gray-800 my-3"
+      :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
+    >
+      {{ $t("category.ctg") }}
+    </h1>
     <VueSlickCarousel
       v-bind="setting"
       ref="carousel"
@@ -16,8 +21,16 @@
       />
     </VueSlickCarousel>
     <div class="text-center m-5 flex items-center justify-between">
-      <fa class="lg mx-5 text-gray-800 cursor-pointer" :icon="['fas', 'angle-left']" @click="showNext()"></fa>
-      <fa class="lg mx-5 text-gray-800 cursor-pointer" :icon="['fas', 'angle-right']" @click="showPrev()"></fa>
+      <fa
+        class="lg mx-5 text-gray-800 cursor-pointer"
+        :icon="['fas', 'angle-left']"
+        @click="showNext()"
+      ></fa>
+      <fa
+        class="lg mx-5 text-gray-800 cursor-pointer"
+        :icon="['fas', 'angle-right']"
+        @click="showPrev()"
+      ></fa>
     </div>
   </div>
 </template>
@@ -67,7 +80,7 @@ export default {
             }
           }
         ]
-      },
+      }
     };
   },
   components: { VueSlickCarousel, Product },

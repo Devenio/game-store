@@ -12,11 +12,19 @@
           :to="{ path: item.path }"
           class="mx-3 cursor-pointer font-medium"
         >
-          {{ item.title }}
+          {{ $t(`${item.title}`) }}
         </nuxt-link>
-        <nuxt-link :to="switchLocalePath('en')">English</nuxt-link>
-        <nuxt-link :to="switchLocalePath('fa')">فارسی</nuxt-link>
-        <a href="#">{{ $t('home')}}</a>
+
+        <select
+          name="lang"
+          id="lang"
+          class="mx-3 cursor-pointer font-medium border-b-2 border-gray-800"
+          @change="setLocale($event)"
+        >
+          <option value="">{{$t("lang")}}</option>
+          <option value="fa">فارسی</option>
+          <option value="en">English</option>
+        </select>
       </ul>
 
       <nuxt-link :to="{ path: '/' }">
@@ -32,6 +40,18 @@
       <div class="sm:hidden cursor-pointer" @click="toggleMenu()">
         <fa :icon="['fas', 'bars']" size="2x" class="text-gray-700"></fa>
       </div>
+    </div>
+    <div class="w-full sm:hidden p-3 text-center">
+      <select
+        name="lang"
+        id="lang"
+        class="mx-3 cursor-pointer font-medium border-b-2 border-gray-800"
+        @change="setLocale($event)"
+      >
+        <option value="">{{$t("lang")}}</option>
+        <option value="fa" id="fa">فارسی</option>
+        <option value="en" id="en">English</option>
+      </select>
     </div>
 
     <!-- small size menu -->
@@ -75,7 +95,7 @@ export default {
     return {
       navbarItems: [
         {
-          title: "حساب کاربری",
+          title: "navItems.acc",
           path: "/dashboard",
           icon: {
             type: "fas",
@@ -83,7 +103,7 @@ export default {
           }
         },
         {
-          title: "صفحه اصلی",
+          title: "navItems.home",
           path: "/",
           icon: {
             type: "fas",
@@ -104,10 +124,20 @@ export default {
         : menu.classList.replace("w-full", "w-0");
 
       this.isMenuClosed = !this.isMenuClosed;
+    },
+    setLocale(event) {
+      if (event.target.value) {
+        this.$i18n.setLocaleCookie(event.target.value);
+        this.$i18n.setLocale(event.target.value);
+      }
+    },
+    setMountLang(lang) {
+      this.$i18n.setLocale(lang);
     }
   },
   mounted() {
-    console.log(this.$i18n.locales);
+    console.log(this.$i18n.getLocaleCookie());
+    this.setMountLang(this.$i18n.getLocaleCookie());
   }
 };
 </script>

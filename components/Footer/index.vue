@@ -3,14 +3,14 @@
     <div class="container mx-auto mt-7 py-3">
       <div class="w-full">
         <ul
-          class="rtl w-full h-full list-none flex items-center text-right justify-center py-5"
+          class="rtl w-full h-full list-none flex items-center justify-center py-5" 
         >
           <a
             tag="li"
             class="mx-5 text-white cursor-pointer"
             :to="{ path: '/' }"
           >
-            <u>قوانین و مقررات</u>
+            <u>{{ $t("footer.items[0]") }}</u>
           </a>
           <div
             class="rounded-circle bg-white"
@@ -21,7 +21,7 @@
             class="mx-5 text-white cursor-pointer"
             :to="{ path: '/' }"
           >
-            <u>ارتباط با ما</u>
+            <u>{{ $t("footer.items[1]") }}</u>
           </a>
           <div
             class="rounded-circle bg-white block"
@@ -32,7 +32,7 @@
             class="mx-5 text-white cursor-pointer block"
             :to="{ path: '/' }"
           >
-            <u>دسته بندی ها</u>
+            <u>{{ $t("footer.items[2]") }}</u>
           </a>
         </ul>
       </div>
@@ -40,21 +40,19 @@
       <div class="w-11/12 bg-gray-100 mx-auto" style="height: 1px;"></div>
 
       <div
-        class="text-right w-full p-4 flex flex-col items-center justify-around md:flex-row-reverse"
+        class="text-right w-full p-4 flex flex-col items-center justify-around" :class="$i18n.getLocaleCookie() == 'fa' ? 'md:flex-row-reverse' : 'md:flex-row'"
       >
         <div class="mt-5 md:mt-0 md:w-1/2">
-          <h3 class="text-white text-center text-base sm:text-lg md:text-right">
-            مقایسه، انتخاب و خرید هوشمند اینترنتی با گیم لند
+          <h3 class="text-white text-center text-base sm:text-lg" :class="$i18n.getLocaleCookie() == 'fa' ? 'md:text-right' : 'md:text-left'">
+            {{ $t("footer.title") }}
           </h3>
-          <p class="text-center sm:text-right text-gray-500">
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+          <p class="text-center text-gray-500" :class="$i18n.getLocaleCookie() == 'fa' ? 'sm:text-right' : 'sm:text-left'">
+            {{ $t("footer.desc") }}
           </p>
         </div>
 
         <div class="flex flex-col items-center mt-5 ">
-          <h3 class="text-white text-lg">گیم لند در شبکه های اجتماعی</h3>
+          <h3 class="text-white text-lg">{{ $t("footer.socialMedia") }}</h3>
           <ul
             class="list-none mt-3 w-full flex items-center justify-center p-0"
           >
@@ -84,7 +82,7 @@
       <div class="text-gray-300 mt-3 text-sm">
         <div class="text-center">
           <p class="">
-            تمامی حقوق مادی و معنوی این سایت برای گیم لند محفوظ است
+            &copy; {{ $t("footer.cr") }}
           </p>
         </div>
       </div>

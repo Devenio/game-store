@@ -1,7 +1,12 @@
 <template>
   <div class="px-3 border-2 border-gray-200 rounded-lg mx-auto">
     <div class="w-full p-3 bg-white rounded-lg mx-auto">
-      <h1 class="text-right text-xl">:توضیحات</h1>
+      <h1
+        class="text-xl"
+        :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
+      >
+        {{ $t("productInfo.desc") }}
+      </h1>
       <progressbar
         v-for="(prop, index) in data.property"
         :key="prop.id"
@@ -9,13 +14,17 @@
         :property="prop.prop"
         :id="index"
       />
-      <p class="text-right text-xl">
+      <p
+        class="text-xl"
+        :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
+      >
+        {{ $t("productInfo.name") }}
         <span class="text-base">{{ data.name }}</span>
-        :نام
       </p>
-      <p class="text-right text-xl mt-5">
-        :توصیف
-        <br />
+      <p
+        class="text-xl mt-5"
+        :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
+      >
         <span class="text-base">{{ data.decs }}</span>
       </p>
     </div>

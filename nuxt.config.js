@@ -38,8 +38,8 @@ export default {
 
   i18n: {
     locales: [
-      { code: "en", iso: "en-US", dir: "ltr", file: "en.js" },
-      { code: "fa", iso: "fa-IR", dir: "rtl", file: "fa.js" }
+      { code: "en", iso: "en-US", file: "en.js" }, //ltr
+      { code: "fa", iso: "fa-IR", file: "fa.js" } //rtl
     ],
     defaultLocale: "fa",
     lazy: true,

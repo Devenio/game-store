@@ -11,10 +11,10 @@
       >
         {{ product.discount }}% تخفیف
       </div>
-      <div class="flex-grow">
+      <div class="">
         <img :src="product.cover" :alt="product.name" class="h-full" />
       </div>
-      <div class="flex-grow text-center">
+      <div class="w-1/4 text-center">
         <p>
           {{ product.name }}
           :نام محصول
@@ -35,7 +35,7 @@
           تومان
         </div>
       </div>
-      <div class="flex items-center flex-grow" v-if="!isPanel">
+      <div class="flex items-center w-1/4" v-if="!isPanel">
         <div
           class="cursor-pointer bg-gray-400 flex items-center justify-center mx-1 text-gray-700"
           style="width:40px;height:40px;"
@@ -60,9 +60,9 @@
           <fa :icon="['fas', 'plus']"></fa>
         </div>
       </div>
-      <div>
+      <div class="flex flex-col items-center flex-grow">
         <button
-          class="bg-blue-500 px-5 py-2 tracking-wider text-white rounded-full hover:bg-blue-600"
+          class="bg-blue-500 px-2 sm:px-5 py-2 tracking-wider text-white rounded-full hover:bg-blue-600"
           :class="product.in_stock ? '' : 'opacity-50'"
           @click="addCart()"
           v-if="! isPanel"

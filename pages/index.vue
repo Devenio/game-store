@@ -2,8 +2,11 @@
   <div class="w-full">
     <div class="container mx-auto">
       <product-slider class="my-10"></product-slider>
-      <h1 class="text-right text-xl px-10 text-gray-800 my-3">
-        :زیر دسته بندی ها
+      <h1
+        class="text-xl px-10 text-gray-800 my-3"
+        :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
+      >
+        {{ $t("category.subCtg") }}
       </h1>
       <div
         class="relative transition-all duration-500 rounded-lg mx-10 flex items-center justify-start overflow-x-auto"
@@ -14,7 +17,7 @@
           class="w-full my-20 flex items-center justify-center"
           v-if="!subCategory.items"
         >
-          !! فعلا زیر دسته بندی ای وجود ندارد
+          {{ $t("category.subCtgMsg") }}
         </div>
         <sub-category
           v-for="item in subCategory.items"
@@ -24,8 +27,8 @@
           :id="item.id"
         />
       </div>
-      <h1 class="text-right text-xl px-10 text-gray-800 my-3 mt-10">
-        :محصولات
+      <h1 class="text-xl px-10 text-gray-800 my-3 mt-10" :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'">
+        {{ $t("category.products") }}
       </h1>
       <div class="flex flex-wrap mb-10">
         <div class="w-full lg:w-2/5"><product-info :data="productsInfo" /></div>
@@ -39,7 +42,7 @@
             class="w-full my-20 flex items-center justify-center"
             v-if="!products.items"
           >
-            !!فعلا محصولی وجود ندارد
+            {{ $t("category.productMsg") }}
           </div>
         </div>
       </div>
