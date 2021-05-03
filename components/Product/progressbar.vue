@@ -22,7 +22,7 @@
           :id="`progress-${index}`"
         ></div>
       </div>
-      <h3 class="text-lg mx-5 text-gray-600">{{ prop.prop }}</h3>
+      <h3 class="text-base sm:text-lg mx-5 text-gray-600">{{ prop.prop }}</h3>
     </div>
   </div>
 </template>

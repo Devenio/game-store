@@ -21,7 +21,7 @@
           class="mx-3 cursor-pointer font-medium border-b-2 border-gray-800"
           @change="setLocale($event)"
         >
-          <option value="">{{$t("lang")}}</option>
+          <option value="">{{ $t("lang") }}</option>
           <option value="fa">فارسی</option>
           <option value="en">English</option>
         </select>
@@ -38,21 +38,21 @@
         Your Logo
       </nuxt-link>
 
-      <div class="sm:hidden cursor-pointer" @click="toggleMenu()">
-        <fa :icon="['fas', 'bars']" size="2x" class="text-gray-700"></fa>
+      <div class="flex items-center sm:hidden">
+        <select
+          name="lang"
+          id="lang"
+          class="mx-3 cursor-pointer font-medium border-b-2 border-gray-800"
+          @change="setLocale($event)"
+        >
+          <option value="">{{ $t("lang") }}</option>
+          <option value="fa" id="fa">فارسی</option>
+          <option value="en" id="en">English</option>
+        </select>
+        <div class="sm:hidden cursor-pointer" @click="toggleMenu()">
+          <fa :icon="['fas', 'bars']" size="2x" class="text-gray-700"></fa>
+        </div>
       </div>
-    </div>
-    <div class="w-full sm:hidden p-3 text-center">
-      <select
-        name="lang"
-        id="lang"
-        class="mx-3 cursor-pointer font-medium border-b-2 border-gray-800"
-        @change="setLocale($event)"
-      >
-        <option value="">{{$t("lang")}}</option>
-        <option value="fa" id="fa">فارسی</option>
-        <option value="en" id="en">English</option>
-      </select>
     </div>
 
     <!-- small size menu -->
@@ -63,7 +63,8 @@
     >
       <div class="w-screen h-full">
         <div class="flex items-center justify-center py-10">
-          <img alt="superz logo" style="width:240px" src="/logotest.svg" />
+          <!-- <img alt="superz logo" style="width:240px" src="/logotest.svg" /> -->
+          Your Logo
         </div>
         <div class="w-full px-5">
           <ul class="flex flex-col items-end">

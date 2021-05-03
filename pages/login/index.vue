@@ -1,5 +1,6 @@
 <template>
-  <div class="w-screen py-16 flex items-center justify-center flex-col">
+  <div class="w-screen pb-16 flex items-center justify-center flex-col">
+    <Offer />
     <Particles
       id="tsparticles"
       :options="{
@@ -80,12 +81,12 @@
         detectRetina: true
       }"
     />
-    <h1 class="text-xl font-semibold my-5">
+    <h1 class="text-lg px-2 sm:text-xl font-semibold my-5 text-center">
       {{ $t("login.title") }}
     </h1>
     <div
       style="height: 500px;"
-      class="bg-gray-800 w-full flex flex-col sm:w-1/2 lg:w-1/3  rounded-lg border-2 border-gray-800 overflow-hidden"
+      class="bg-gray-800 w-full flex flex-col sm:w-1/2 lg:w-1/3  sm:rounded-lg border-2 border-gray-800 overflow-hidden"
     >
       <div class="w-full flex divide-x-2 divide-gray-700">
         <div

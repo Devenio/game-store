@@ -17,7 +17,7 @@
               mode: 'push'
             },
             onHover: {
-              enable: false,
+              enable: false
             },
             resize: true
           },
@@ -83,6 +83,7 @@
 
     <div class="container mx-auto">
       <product-slider class="my-10"></product-slider>
+      <Offer />
       <h1
         class="text-xl px-10 text-gray-800 my-3"
         :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
@@ -90,7 +91,7 @@
         {{ $t("category.subCtg") }}
       </h1>
       <div
-        class="relative transition-all duration-500 rounded-lg mx-10 flex items-center justify-start overflow-x-auto"
+        class="relative transition-all duration-500 rounded-lg sm:mx-10 flex items-center justify-start overflow-x-auto"
         style="max-height:550px;"
         id="sub-category"
       >
@@ -161,8 +162,9 @@ export default {
   },
   async asyncData({ $axios, store }) {
     try {
-      const categoryItems = await $axios.$get("index/GetCategory?language=fa");
-
+      const categoryItems = await $axios.$get(
+        `index/GetCategory?language=${store.getters.locale}`
+      );
       store.dispatch("setCategoryItems", categoryItems.body);
     } catch (ex) {
       console.log(ex);
@@ -200,13 +202,13 @@ export default {
   background: #555;
 }
 #tsparticles {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    opacity: 0.48;
-    z-index: -10;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  opacity: 0.48;
+  z-index: -10;
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div class="w-full" id="app">
     <app-header />
-    <Offer />
     <Nuxt />
     <Footer />
   </div>

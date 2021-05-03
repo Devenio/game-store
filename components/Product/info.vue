@@ -1,6 +1,6 @@
 <template>
   <div class="px-3 rounded-lg mx-auto">
-    <div class="w-full p-3 bg-white rounded-lg mx-auto border-2 border-gray-200">
+    <div class="w-full p-3 bg-white rounded-lg mx-auto border-2 border-gray-200" v-if="data.name">
       <h1
         class="text-xl"
         :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
@@ -9,7 +9,7 @@
       </h1>
       <progressbar />
       <p
-        class="text-xl"
+        class="text-lg sm:text-xl"
         :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
       >
         {{ $t("productInfo.name") }}
@@ -19,7 +19,7 @@
         class="text-xl mt-5"
         :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"
       >
-        <span class="text-base">{{ data.decs }}</span>
+        <span class="text-base text-gray-700">{{ data.decs }}</span>
       </p>
     </div>
   </div>

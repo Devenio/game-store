@@ -9,7 +9,7 @@
     <VueSlickCarousel
       v-bind="setting"
       ref="carousel"
-      class="relative px-5 z-10"
+      class="relative z-10"
       style="height: 250px"
     >
       <Product
@@ -55,7 +55,7 @@ export default {
           {
             breakpoint: 1280,
             settings: {
-              dots: false,
+              dots: true,
               arrows: false,
               slidesPerRow: 3
               // autoplay: true
@@ -64,7 +64,7 @@ export default {
           {
             breakpoint: 768,
             settings: {
-              dots: false,
+              dots: true,
               arrows: false,
               slidesPerRow: 2
               // autoplay: true
@@ -73,7 +73,7 @@ export default {
           {
             breakpoint: 500,
             settings: {
-              dots: false,
+              dots: true,
               arrows: false,
               slidesPerRow: 1
               // autoplay: true
