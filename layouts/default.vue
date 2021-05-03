@@ -15,6 +15,9 @@ export default {
   components: {
     appHeader: Header,
     Footer
+  },
+  head() {
+    return this.$nuxtI18nHead();
   }
 };
 </script>

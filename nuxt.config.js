@@ -17,7 +17,7 @@ export default {
   css: ["~/assets/style.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/particles.js'],
+  plugins: ["@/plugins/particles.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -32,8 +32,19 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    "nuxt-i18n"
   ],
+
+  i18n: {
+    locales: [
+      { code: "en", iso: "en-US", dir: "ltr", file: "en.js" },
+      { code: "fa", iso: "fa-IR", dir: "rtl", file: "fa.js" }
+    ],
+    defaultLocale: "fa",
+    lazy: true,
+    langDir: "lang/"
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},

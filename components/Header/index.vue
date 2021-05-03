@@ -14,6 +14,9 @@
         >
           {{ item.title }}
         </nuxt-link>
+        <nuxt-link :to="switchLocalePath('en')">English</nuxt-link>
+        <nuxt-link :to="switchLocalePath('fa')">فارسی</nuxt-link>
+        <a href="#">{{ $t('home')}}</a>
       </ul>
 
       <nuxt-link :to="{ path: '/' }">
@@ -79,22 +82,6 @@ export default {
             name: "user-circle"
           }
         },
-        // {
-        //   title: "اخذ نمایندگی",
-        //   path: "/",
-        //   icon: {
-        //     type: "fas",
-        //     name: "headset"
-        //   }
-        // },
-        // {
-        //   title: "اپلیکیشن سایت",
-        //   path: "/",
-        //   icon: {
-        //     type: "fas",
-        //     name: "mobile-alt"
-        //   }
-        // },
         {
           title: "صفحه اصلی",
           path: "/",
@@ -118,6 +105,9 @@ export default {
 
       this.isMenuClosed = !this.isMenuClosed;
     }
+  },
+  mounted() {
+    console.log(this.$i18n.locales);
   }
 };
 </script>
