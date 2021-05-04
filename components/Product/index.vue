@@ -83,6 +83,13 @@
           :{{ $t("product.number") }}
         </p>
       </div>
+      <input
+        type="text"
+        class="border-2 border-gray-800 p-2"
+        :placeholder="$i18n.getLocaleCookie() == 'fa' ? 'ایدی بازی' : 'Game Id'"
+        v-model="user_input"
+        id="user_input"
+      />
     </div>
   </div>
 </template>
@@ -107,7 +114,8 @@ export default {
   computed: mapGetters(["productCounter"]),
   data() {
     return {
-      counter: 0
+      counter: 0,
+      user_input: ""
     };
   },
   methods: {
@@ -128,25 +136,47 @@ export default {
       this.counter--;
     },
     addCart() {
-      if (this.counter === 0) {
+      if (this.counter === 0 || this.user_input == "") {
         this.toggleCounterBoxStatus(true);
       } else {
         this.toggleCounterBoxStatus(false);
-        let order = {
-          product: this.product,
-          product_number: this.counter
-        };
-        this.$store.dispatch("addOrder", order);
-        this.counter = 0;
+        // let order = {
+        //   product: this.product,
+        //   product_number: this.counter
+        // };
+        // this.$store.dispatch("addOrder", order);
+
+        this.$axios
+          .$post(`cart/add`, {
+            params: {
+              language: this.$store.getters.locale,
+              product_id: this.product.id,
+              count: this.counter,
+              user_input: this.user_input
+            },
+            headers: { Authorization: `Bearer ${this.$store.getters.token}` }
+          })
+          .then(res => {
+            console.log(res);
+            this.counter = 0;
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     },
     toggleCounterBoxStatus(status) {
+      const userInput = document.querySelector("#user_input");
       const counterBox = document.querySelector(
         `#counter-box-${this.product.id}`
       );
-      status
-        ? counterBox.classList.replace("bg-gray-200", "bg-red-400")
-        : counterBox.classList.replace("bg-red-400", "bg-gray-200");
+      if (status) {
+        counterBox.classList.replace("bg-gray-200", "bg-red-400");
+        userInput.classList.replace("border-gray-800 ", "border-red-600 ");
+      } else {
+        counterBox.classList.replace("bg-red-400", "bg-gray-200");
+        userInput.classList.replace("border-red-600 ", "border-gray-800 ");
+      }
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`subCategory-${id}`"
-    class="relative overflow-hidden m-3 rounded-lg transform cursor-pointer"
+    class="relative overflow-hidden m-3 rounded-lg transform cursor-pointer shadow-xl"
     :data-id="id"
     style="min-width: 160px;"
     @click="getProduct()"
@@ -30,12 +30,19 @@ export default {
   methods: {
     getProduct() {
       const subCategory = document.querySelector(`#subCategory-${this.id}`);
-      const id = subCategory.id;
+      const id = subCategory.dataset.id;
+      console.log(id);
 
       this.$axios
-        .$get(`index/GetProducts?language=${this.$i18n.getLocaleCookie()}&sub_category_id=${id}`)
+        .$get(`index/GetProducts`, {
+          params: {
+            language: this.$i18n.getLocaleCookie(),
+            sub_category_id: id
+          }
+        })
         .then(res => {
           this.$store.dispatch("setProducts", res);
+          console.log(res);
         })
         .catch(err => {
           console.log(err);

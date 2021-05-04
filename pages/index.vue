@@ -162,8 +162,10 @@ export default {
   },
   async asyncData({ $axios, store }) {
     try {
+      const agent_id = await $axios.$get(`/index/AgentDetect`);
+      store.commit("SET_AGENT_ID", agent_id.body.info.agent_id);
       const categoryItems = await $axios.$get(
-        `index/GetCategory?language=${store.getters.locale}`
+        `index/GetCategory?language=${store.getters.locale}&agent_id=${agent_id.body.info.agent_id}`
       );
       store.dispatch("setCategoryItems", categoryItems.body);
     } catch (ex) {

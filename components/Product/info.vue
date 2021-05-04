@@ -1,6 +1,6 @@
 <template>
   <div class="px-3 rounded-lg mx-auto">
-    <div class="w-full p-3 bg-white rounded-lg mx-auto border-2 border-gray-200" v-if="data.name">
+    <div class="w-full p-3 bg-white rounded-lg mx-auto border-2 border-gray-200 shadow-xl" v-if="data.name">
       <h1
         class="text-xl"
         :class="$i18n.getLocaleCookie() == 'fa' ? 'text-right' : 'text-left'"

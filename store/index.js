@@ -8,7 +8,8 @@ export const state = () => ({
   userData: {},
   currentTab: "",
   locale: "fa",
-  token: ""
+  token: "",
+  agent_id: 0
 });
 
 export const getters = {
@@ -41,6 +42,9 @@ export const getters = {
   },
   token: state => {
     return state.token;
+  },
+  agent_id: state => {
+    return state.agent_id;
   }
 };
 
@@ -74,6 +78,9 @@ export const mutations = {
   },
   SET_TOKEN: (state, payload) => {
     state.token = payload;
+  },
+  SET_AGENT_ID: (state, payload) => {
+    state.agent_id = payload;
   }
 };
 
