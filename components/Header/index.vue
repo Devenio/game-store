@@ -140,7 +140,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$i18n.getLocaleCookie());
     this.setMountLang(this.$i18n.getLocaleCookie());
   }
 };

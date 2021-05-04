@@ -39,10 +39,10 @@
         },
         particles: {
           color: {
-            value: '#222222'
+            value: '#444444'
           },
           links: {
-            color: '#222222',
+            color: '#444444',
             distance: 150,
             enable: true,
             opacity: 0.5,
@@ -111,9 +111,8 @@
           <div
             class="text-gray-800 text-lg p-3 border-b-2 border-gray-700 text-right"
           >
-            {{ $t("panel.tPrice") }}:
-            {{ order | calcTotalPrice }}
-            {{ $t("product.currency") }}
+            {{ $t("panel.tPrice") }}: {{ order | calcTotalPrice
+            }}{{ $t("product.currency") }}
           </div>
           <button
             type="submit"
@@ -192,8 +191,14 @@
         </div>
       </div>
 
-      <!-- Wallet -->
-      <div v-if="currentTab == 1"></div>
+      <!-- Tickets -->
+      <div v-if="currentTab == 1 && !$fetchState.pending" class="relative z-10">
+        <div
+          class="text-gray-800 text-lg p-3 border-b-2 border-gray-700 text-center mb-10 w-full lg:w-3/4 mx-auto"
+        >
+          {{ $t("panel.ticket") }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -225,7 +230,6 @@ export default {
   },
   data() {
     return {
-      panelItems: ["سبد خرید"],
       amount: 0,
       userData: {},
       walletHistory: {},
@@ -234,7 +238,6 @@ export default {
   },
   async fetch() {
     const token = this.token;
-    console.log(token);
 
     try {
       // Get user information

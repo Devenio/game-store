@@ -49,6 +49,7 @@ export default {
     inv: "Your inventory",
     incInv: "Increase inventory",
     th: "Transaction history",
+    ticket: "Tickets",
     table: {
       row: "Row",
       price: "Price",

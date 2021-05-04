@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen pb-16 flex items-center justify-center flex-col">
-    <Offer />
+    <app-offer />
     <Particles
       id="tsparticles"
       :options="{
@@ -187,6 +187,7 @@
 </template>
 
 <script>
+import Offer from "@/components/Offer/index"
 export default {
   data() {
     return {
@@ -203,10 +204,14 @@ export default {
       errorMessage: ""
     };
   },
+  components: {
+    appOffer: Offer
+  },
   methods: {
     userLogin() {
       let data = this.isLogin ? this.loginData : this.registerData;
       const loginButton = document.querySelector("#login-button");
+      this.errorMessage = ""
 
       if (this.isLogin) {
         this.$axios
@@ -229,6 +234,7 @@ export default {
                 "access_token",
                 res.body.info.access_token
               );
+              // this.errorMessage = "اگر به صورت خودکار به پنل کاربری منتقل نشدید بر روی account کلیک کنید"
               this.$router.push("/dashboard");
             }
           })
@@ -267,7 +273,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$i18n.getLocaleCookie());
     this.$i18n.setLocale(localStorage.getItem("locale"));
   }
 };

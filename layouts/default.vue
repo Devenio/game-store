@@ -2,7 +2,7 @@
   <div class="w-full" id="app">
     <app-header />
     <Nuxt />
-    <Footer />
+    <app-footer />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import Footer from "@/components/Footer/index";
 export default {
   components: {
     appHeader: Header,
-    Footer
+    appFooter: Footer,
   },
   head() {
     return this.$nuxtI18nHead();

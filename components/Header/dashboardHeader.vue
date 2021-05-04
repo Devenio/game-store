@@ -43,10 +43,14 @@
         <li
           class="py-3 text-center text-gray-100 text-lg hover:bg-gray-800 cursor-pointer"
           @click="tabClicked(0)"
-          data-tab="0"
-          id="tab-0"
         >
           {{ $t("panel.cartTitle") }}
+        </li>
+        <li
+          class="py-3 text-center text-gray-100 text-lg hover:bg-gray-800 cursor-pointer"
+          @click="tabClicked(1)"
+        >
+          {{ $t("panel.ticket") }}
         </li>
         <li
           class="py-3 text-center text-red-500 text-lg hover:bg-gray-800 cursor-pointer"
@@ -79,9 +83,7 @@ export default {
   },
   methods: {
     tabClicked(index) {
-      const tab = document.querySelector(`#tab-${index}`);
-      this.openMenu = !this.openMenu;
-      this.$store.dispatch("setCurrentTab", tab.dataset.tab);
+      this.$store.dispatch("setCurrentTab", index);
     },
     setLocale(event) {
       if (event.target.value) {

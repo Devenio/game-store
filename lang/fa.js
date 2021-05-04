@@ -48,6 +48,7 @@ export default {
     inv: "موجودی شما",
     incInv: "افزایش موجودی",
     th: "تاریخچه تراکنش ها",
+    ticket: "تیکت ها",
     table: {
       row: "ردیف",
       price: "مبلغ",
@@ -58,6 +59,6 @@ export default {
       name: "نام",
       email: "ایمیل",
       phoneNum: "شماره تلفن"
-    }
+    },
   }
 };
