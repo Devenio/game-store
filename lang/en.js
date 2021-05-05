@@ -54,7 +54,13 @@ export default {
       row: "Row",
       price: "Price",
       time: "Time",
-      status: "Status"
+      status: "Status",
+      id: "id",
+      cover: "cover",
+      count: "count",
+      name: "product name",
+      user_input: "game id",
+      remove: "remove"
     },
     header: {
       name: "name",

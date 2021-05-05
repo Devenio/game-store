@@ -31,7 +31,6 @@ export default {
     getProduct() {
       const subCategory = document.querySelector(`#subCategory-${this.id}`);
       const id = subCategory.dataset.id;
-      console.log(id);
 
       this.$axios
         .$get(`index/GetProducts`, {
@@ -42,7 +41,6 @@ export default {
         })
         .then(res => {
           this.$store.dispatch("setProducts", res);
-          console.log(res);
         })
         .catch(err => {
           console.log(err);

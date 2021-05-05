@@ -88,21 +88,67 @@
         >
           {{ $t("panel.cartTitle") }}
         </div>
-        <div class="flex flex-wrap">
-          <div class="w-full lg:w-3/4 mx-auto">
-            <div
-              class="w-full py-20 flex items-center justify-center"
-              v-if="order.length == 0"
-            >
-              {{ $t("panel.cartMsg") }}
-            </div>
-            <Product
-              v-for="ord in order"
-              :key="ord.id"
-              :product="ord.product"
-              :isPanel="true"
-              :product_num="ord.product_number"
-            />
+        <div class="flex flex-wrap overflow-x-auto">
+          <div class="w-full lg:w-3/4 mx-auto" style="min-width: 500px;">
+            <table class="w-full" v-if="!$fetch.pending">
+              <div
+                class="w-full py-20 flex items-center justify-center"
+                v-if="!cart_list"
+              >
+                {{ $t("panel.cartMsg") }}
+              </div>
+              <tr class="text-center" v-else>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.cover") }}
+                </th>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.id") }}
+                </th>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.price") }}
+                </th>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.name") }}
+                </th>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.count") }}
+                </th>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.user_input") }}
+                </th>
+                <th class="p-1 bg-gray-300 border-2 border-gray-800">
+                  {{ $t("panel.table.remove") }}
+                </th>
+              </tr>
+              <tr
+                v-for="(item, index) in cart_list"
+                :key="index"
+                class="divide-x-2 divide-gray-800 text-center text-lg"
+                :id="`pr-${item.id}`"
+              >
+                <td style="width:70px">
+                  <img :src="item.image" :alt="item.id" style="width: 70px;" />
+                </td>
+                <td>{{ item.product_id }}</td>
+                <td>{{ item.price | toRealPrice }}</td>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.count }}</td>
+                <td>{{ item.user_input }}</td>
+                <td class="text-red-700 cursor-pointer">
+                  <fa
+                    :icon="['fas', 'trash-alt']"
+                    @click="
+                      deleteItem({
+                        cart_id: item.id,
+                        product_id: item.product_id
+                      })
+                    "
+                  ></fa>
+                </td>
+              </tr>
+
+              <v-dialog />
+            </table>
           </div>
         </div>
         <div
@@ -111,7 +157,7 @@
           <div
             class="text-gray-800 text-lg p-3 border-b-2 border-gray-700 text-right"
           >
-            {{ $t("panel.tPrice") }}: {{ order | calcTotalPrice
+            {{ $t("panel.tPrice") }}: {{ total_price | toRealPrice
             }}{{ $t("product.currency") }}
           </div>
           <button
@@ -204,12 +250,15 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   middleware: "Authentication",
   layout: "dashboard",
-  computed: mapGetters(["order", "currentTab", "token"]),
+  computed: {
+    ...mapGetters(["order", "currentTab"]),
+    ...mapState(["total_price"])
+  },
   filters: {
     calcTotalPrice: val => {
       let result = 0;
@@ -233,11 +282,14 @@ export default {
       amount: 0,
       userData: {},
       walletHistory: {},
-      walletBalance: {}
+      walletBalance: {},
+      cart_list: {}
     };
   },
   async fetch() {
-    const token = this.token;
+    const token = localStorage.getItem("access_token");
+    this.$i18n.setLocale(localStorage.getItem("locale"));
+    const cart_token = localStorage.getItem("cart_token");
 
     try {
       // Get user information
@@ -248,6 +300,24 @@ export default {
         }
       );
       this.$store.dispatch("setUserData", userData.body.info[0]);
+      // Get cart_list
+      this.$axios
+        .$get(
+          `/cart/list?language=${this.$i18n.getLocaleCookie()}&agent_id=${
+            this.$store.getters.agent_id
+          }&cart_token=${cart_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$store.getters.token}`
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.body.items);
+          this.cart_list = res.body.items;
+          this.calcTotalPrice(this.cart_list);
+        })
+        .catch(err => console.log(err));
       // Get wallet history
       const walletHistory = await this.$axios.$get(
         `wallet/history?language=${this.$i18n.getLocaleCookie()}`,
@@ -261,8 +331,6 @@ export default {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-
-      // return { userData, walletHistory, walletBalance };
       this.userData = userData;
       this.walletHistory = walletHistory;
       this.walletBalance = walletBalance;
@@ -297,10 +365,76 @@ export default {
       } else {
         amountBox.classList.replace("border-gray-800", "border-red-500");
       }
+    },
+    calcTotalPrice(data) {
+      let result = 0;
+      if (data) {
+        data.forEach(item => {
+          result += item.price * item.count;
+        });
+      }
+      console.log(result);
+      this.$store.commit("SET_TOTAL_PRICE", result);
+    },
+    deleteItem(data) {
+      this.$modal.show("dialog", {
+        title: "Delete an item from cart",
+        text: `Are you sure you want to remove "product ${data.product_id}" from your cart?`,
+        buttons: [
+          {
+            title: "Cancel",
+            handler: () => {
+              this.$modal.hide("dialog");
+            }
+          },
+          {
+            title: "Yes, remove it",
+            handler: () => {
+              this.completeDeleteItem(data);
+              this.$modal.hide("dialog");
+            }
+          }
+        ]
+      });
+    },
+    async completeDeleteItem(data) {
+      const token = localStorage.getItem("access_token");
+      const cart_token = localStorage.getItem("cart_token");
+      const config = {
+        method: "post",
+        url: "cart/remove",
+        params: {
+          language: localStorage.getItem("locale"),
+          cart_id: data.cart_id,
+          product_id: data.product_id,
+          cart_token: cart_token
+        },
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+      try {
+        const res = await this.$axios(config);
+        console.log(res);
+        // this.getCartList();
+        this.$modal.show("dialog", {
+          title: "Item removed successfully!",
+          text: `Please wait to refresh your cart list. refresh in 3 seconds later.`,
+          buttons: [
+            {
+              title: "Close",
+              handler: () => {
+                this.$modal.hide("dialog");
+              }
+            }
+          ]
+        });
+        setTimeout(() => {
+          this.$nuxt.refresh();
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  },
-  mounted() {
-    this.$i18n.setLocale(localStorage.getItem("locale"));
   }
 };
 </script>

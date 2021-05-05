@@ -32,7 +32,7 @@ export default {
     inStock: "موجود میباشد",
     notInStock: "موجود نمیباشد",
     number: "تعداد",
-    buy: "افزودن به سبد خرید",
+    buy: "افزودن به سبد",
     currency: "تومان"
   },
   login: {
@@ -53,7 +53,13 @@ export default {
       row: "ردیف",
       price: "مبلغ",
       time: "زمان",
-      status: "وضعیت"
+      status: "وضعیت",
+      id: "آیدی",
+      cover: "تصویر",
+      count: "تعداد",
+      name: "نام محصول",
+      user_input: "ایدی بازی",
+      remove: "حذف"
     },
     header: {
       name: "نام",

@@ -17,7 +17,7 @@ export default {
   css: ["~/assets/style.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["@/plugins/particles.js"],
+  plugins: ["@/plugins/particles.js", "@/plugins/vue-js-modal.client.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
